@@ -117,7 +117,6 @@ for (var k = 1; k <= AD_AMOUNT; k++) {
 
 // console.log(similarAds);
 
-document.querySelector('.map').classList.remove('map--faded');
 var mapPins = document.querySelector('.map__pins');
 
 var fragment = document.createDocumentFragment();
@@ -133,3 +132,4 @@ for (var t = 0; t < similarAds.length; t++) {
 }
 
 mapPins.appendChild(fragment);
+document.querySelector('.map').classList.remove('map--faded');
