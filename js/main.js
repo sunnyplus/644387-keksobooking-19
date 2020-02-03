@@ -1,9 +1,6 @@
 'use strict';
 
 var AD_AMOUNT = 8;
-var map = document.querySelector('.map');
-var mapWidth = map.offsetWidth;
-var mapFilters = document.querySelector('.map__filters-container');
 
 var PRICE_MIN = 5000;
 var PRICE_MAX = 55000;
@@ -67,6 +64,11 @@ var DESCRIPTIONS = [
   'Великолепная лавочка прямо в центре парка. Подходит для всех кто любит спать на свежем воздухе.',
   'Замечательный дворец в старинном центре города. Только для тех кто может себе позволить дворец. Лакеев и прочих жокеев просим не беспокоить.'
 ];
+
+var map = document.querySelector('.map');
+var mapWidth = map.offsetWidth;
+var mapFilters = document.querySelector('.map__filters-container');
+
 var getRandomRange = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -171,13 +173,6 @@ for (var n = 0; n < 1; n++) { // 1 => similarAds.length
   newCard.querySelector('.popup__features').remove(); // фичи
   var featuresList = createNode('ul', 'popup__features', similarAds[n].author.offer.features, 'li', 'popup__feature');
   newCard.querySelector('.popup__description').before(featuresList);
-
-  // for (var d = 0; d < similarAds[n].author.offer.photos - 1; d++) {
-  //   var photoTemplate = newCard.querySelector('.popup__photo').cloneNode(true);
-  //   var photoPopups = newCard.querySelector('.popup__photos');
-  //   photoTemplate.scr = similarAds[n].author.offer.photos[d];
-  //   photoPopups.append(photoTemplate);
-  // }
 
   newCard.querySelector('.popup__description').textContent = similarAds[n].author.offer.description;
 
