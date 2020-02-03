@@ -16,14 +16,6 @@ var IMAGES_MAX = 10;
 var LOCATION_Y_MIN = 130;
 var LOCATION_Y_MAX = 630;
 
-var getSimilarAds = function () {
-  var similarAds = [];
-  for (var k = 1; k <= AD_AMOUNT; k++) {
-    similarAds.push(getSimilarAd(k));
-  }
-  return similarAds;
-};
-
 var TITLES = [
   'Уютное гнездышко для молодоженов',
   'Маленькая квартирка рядом с парком',
@@ -64,6 +56,14 @@ var DESCRIPTIONS = [
   'Великолепная лавочка прямо в центре парка. Подходит для всех кто любит спать на свежем воздухе.',
   'Замечательный дворец в старинном центре города. Только для тех кто может себе позволить дворец. Лакеев и прочих жокеев просим не беспокоить.'
 ];
+
+var getSimilarAds = function () {
+  var similarAds = [];
+  for (var k = 1; k <= AD_AMOUNT; k++) {
+    similarAds.push(getSimilarAd(k));
+  }
+  return similarAds;
+};
 
 var map = document.querySelector('.map');
 var mapWidth = map.offsetWidth;
@@ -178,7 +178,6 @@ for (var n = 0; n < 1; n++) { // 1 => similarAds.length
 
   fragmentCard.append(newCard);
 }
-
 
 mapFilters.before(fragmentCard);
 document.querySelector('.map').classList.remove('map--faded');
