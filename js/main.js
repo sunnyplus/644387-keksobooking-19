@@ -129,8 +129,6 @@ var getSimilarAd = function (userNumber) {
 
 var similarAds = getSimilarAds();
 
-// console.log(similarAds);
-
 var mapPins = document.querySelector('.map__pins');
 
 var fragmentPin = document.createDocumentFragment();
