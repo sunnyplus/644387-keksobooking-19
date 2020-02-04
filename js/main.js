@@ -59,6 +59,13 @@ var DESCRIPTIONS = [
   'Замечательный дворец в старинном центре города. Только для тех кто может себе позволить дворец. Лакеев и прочих жокеев просим не беспокоить.'
 ];
 
+var offerTypes = {
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец'
+};
+
 var getSimilarAds = function () {
   var similarAds = [];
   for (var k = 1; k <= AD_AMOUNT; k++) {
@@ -172,21 +179,7 @@ for (var n = 0; n < 1; n++) { // 1 => similarAds.length
   newCard.querySelector('.popup__text--price').textContent = similarAds[n].author.offer.price + ' ₽';
   newCard.querySelector('.popup__text--price').append(document.createElement('span'));
   newCard.querySelector('span').textContent = '/ночь';
-  switch (similarAds[n].author.offer.type) {
-    case 'bungalo':
-      newCard.querySelector('.popup__type').textContent = 'Бунгало';
-      break;
-    case 'flat':
-      newCard.querySelector('.popup__type').textContent = 'Квартира';
-      break;
-    case 'house':
-      newCard.querySelector('.popup__type').textContent = 'Дом';
-      break;
-    case 'palace':
-      newCard.querySelector('.popup__type').textContent = 'Дворец';
-      break;
-  }
-  // newCard.querySelector('.popup__type').textContent = similarAds[n].author.offer.type;
+  newCard.querySelector('.popup__type').textContent = offerTypes[similarAds[n].author.offer.type];
   newCard.querySelector('.popup__text--capacity').textContent = similarAds[n].author.offer.rooms + ' комнаты для ' + similarAds[n].author.offer.guests + ' гостей';
   newCard.querySelector('.popup__text--time').textContent = 'заезд после ' + similarAds[n].author.offer.checkin + ', выезд до ' + similarAds[n].author.offer.checkout;
 
