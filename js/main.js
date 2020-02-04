@@ -11,7 +11,7 @@ var GUESTS_MAX = 5;
 var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 
-var IMAGES_MAX = 10;
+var IMAGES_MAX = 3;
 
 var LOCATION_Y_MIN = 130;
 var LOCATION_Y_MAX = 630;
@@ -164,22 +164,29 @@ var fragmentCard = document.createDocumentFragment();
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 for (var n = 0; n < 1; n++) { // 1 => similarAds.length
-  var newCard = cardTemplate.cloneNode(true); // клонируем карточку
-  if (similarAds[n].author.avatar) {
-    newCard.querySelector('.popup__avatar').src = similarAds[n].author.avatar;
-  }
+  var newCard = cardTemplate.cloneNode(true);
+  newCard.querySelector('.popup__avatar').src = similarAds[n].author.avatar;
 
-  if (similarAds[n].author.offer.title) {
-    newCard.querySelector('.popup__title').textContent = similarAds[n].author.offer.title;
-  } else {
-    newCard.querySelector('.popup__title').remove();
-  }
-
+  newCard.querySelector('.popup__title').textContent = similarAds[n].author.offer.title;
   newCard.querySelector('.popup__text--address').textContent = similarAds[n].author.offer.address;
   newCard.querySelector('.popup__text--price').textContent = similarAds[n].author.offer.price + ' ₽';
   newCard.querySelector('.popup__text--price').append(document.createElement('span'));
   newCard.querySelector('span').textContent = '/ночь';
-  newCard.querySelector('.popup__type').textContent = similarAds[n].author.offer.type;
+  switch (similarAds[n].author.offer.type) {
+    case 'bungalo':
+      newCard.querySelector('.popup__type').textContent = 'Бунгало';
+      break;
+    case 'flat':
+      newCard.querySelector('.popup__type').textContent = 'Квартира';
+      break;
+    case 'house':
+      newCard.querySelector('.popup__type').textContent = 'Дом';
+      break;
+    case 'palace':
+      newCard.querySelector('.popup__type').textContent = 'Дворец';
+      break;
+  }
+  // newCard.querySelector('.popup__type').textContent = similarAds[n].author.offer.type;
   newCard.querySelector('.popup__text--capacity').textContent = similarAds[n].author.offer.rooms + ' комнаты для ' + similarAds[n].author.offer.guests + ' гостей';
   newCard.querySelector('.popup__text--time').textContent = 'заезд после ' + similarAds[n].author.offer.checkin + ', выезд до ' + similarAds[n].author.offer.checkout;
 
