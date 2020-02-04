@@ -17,6 +17,8 @@ var LOCATION_Y_MIN = 130;
 var LOCATION_Y_MAX = 630;
 
 var TITLES = [
+  '',
+  '',
   'Уютное гнездышко для молодоженов',
   'Маленькая квартирка рядом с парком',
   'Небольшая лавочка в парке'
@@ -162,9 +164,17 @@ var fragmentCard = document.createDocumentFragment();
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 for (var n = 0; n < 1; n++) { // 1 => similarAds.length
-  var newCard = cardTemplate.cloneNode(true);
-  newCard.querySelector('.popup__avatar').src = similarAds[n].author.avatar;
-  newCard.querySelector('.popup__title').textContent = similarAds[n].author.offer.title;
+  var newCard = cardTemplate.cloneNode(true); // клонируем карточку
+  if (similarAds[n].author.avatar) {
+    newCard.querySelector('.popup__avatar').src = similarAds[n].author.avatar;
+  }
+
+  if (similarAds[n].author.offer.title) {
+    newCard.querySelector('.popup__title').textContent = similarAds[n].author.offer.title;
+  } else {
+    newCard.querySelector('.popup__title').remove();
+  }
+
   newCard.querySelector('.popup__text--address').textContent = similarAds[n].author.offer.address;
   newCard.querySelector('.popup__text--price').textContent = similarAds[n].author.offer.price + ' ₽';
   newCard.querySelector('.popup__text--price').append(document.createElement('span'));
