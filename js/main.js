@@ -79,7 +79,7 @@ var getRandomElement = function (array) {
 
 var getRandomImages = function (count) {
   var randomArray = [];
-  for (var i = 0; i < getRandomRange(1, count); i++) {
+  for (var i = 1; i < getRandomRange(1, count); i++) {
     randomArray.push('http://o0.github.io/assets/images/tokyo/hotel' + i + '.jpg');
   }
   return randomArray;
@@ -163,9 +163,12 @@ var cardTemplate = document.querySelector('#card').content.querySelector('.map__
 
 for (var n = 0; n < 1; n++) { // 1 => similarAds.length
   var newCard = cardTemplate.cloneNode(true);
+  newCard.querySelector('.popup__avatar').src = similarAds[n].author.avatar;
   newCard.querySelector('.popup__title').textContent = similarAds[n].author.offer.title;
   newCard.querySelector('.popup__text--address').textContent = similarAds[n].author.offer.address;
-  newCard.querySelector('.popup__text--price').textContent = similarAds[n].author.offer.price + '₽';
+  newCard.querySelector('.popup__text--price').textContent = similarAds[n].author.offer.price + ' ₽';
+  newCard.querySelector('.popup__text--price').append(document.createElement('span'));
+  newCard.querySelector('span').textContent = '/ночь';
   newCard.querySelector('.popup__type').textContent = similarAds[n].author.offer.type;
   newCard.querySelector('.popup__text--capacity').textContent = similarAds[n].author.offer.rooms + ' комнаты для ' + similarAds[n].author.offer.guests + ' гостей';
   newCard.querySelector('.popup__text--time').textContent = 'заезд после ' + similarAds[n].author.offer.checkin + ', выезд до ' + similarAds[n].author.offer.checkout;
@@ -176,8 +179,17 @@ for (var n = 0; n < 1; n++) { // 1 => similarAds.length
 
   newCard.querySelector('.popup__description').textContent = similarAds[n].author.offer.description;
 
+  for (var d = 0; d < similarAds[n].author.offer.photos.length; d++) {
+    var photoTemplate = newCard.querySelector('.popup__photo').cloneNode(true);
+    photoTemplate.src = similarAds[n].author.offer.photos[d];
+    var photoPopups = newCard.querySelector('.popup__photos');
+    photoPopups.append(photoTemplate);
+  }
+
   fragmentCard.append(newCard);
 }
 
 mapFilters.before(fragmentCard);
+document.querySelector('.popup__photo').remove();
 document.querySelector('.map').classList.remove('map--faded');
+
