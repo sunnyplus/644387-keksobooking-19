@@ -112,6 +112,20 @@ var getSimilarAds = function () {
   return similarAds;
 };
 
+var capacity = document.querySelector('#capacity');
+var roomNumber = document.querySelector('#room_number');
+var checkCapacityValidity = function () {
+  if (roomNumber.value !== document.querySelector('#capacity').value) {
+    capacity.setCustomValidity('выбранное количество гостей не подходит под количество комнат');
+  } else {
+    capacity.setCustomValidity('');
+  }
+};
+
+var onFieldChange = function () {
+  checkCapacityValidity();
+};
+
 var map = document.querySelector('.map');
 var mapWidth = map.offsetWidth;
 // var mapFilters = document.querySelector('.map__filters-container');
@@ -257,15 +271,5 @@ mapPin.addEventListener('keydown', function (evt) { // обработчик на
   }
 });
 
-var capacity = document.querySelector('#capacity');
-var roomNumber = document.querySelector('#room_number');
-var checkCapacityValidity = function () {
-  if (roomNumber.value !== document.querySelector('#capacity').value) {
-    capacity.setCustomValidity('выбранное количество гостей не подходит под количество комнат');
-  } else {
-    capacity.setCustomValidity('');
-  }
-};
-
-capacity.addEventListener('change', checkCapacityValidity);
-roomNumber.addEventListener('change', checkCapacityValidity);
+capacity.addEventListener('change', onFieldChange);
+roomNumber.addEventListener('change', onFieldChange);
