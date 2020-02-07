@@ -59,6 +59,8 @@ var DESCRIPTIONS = [
   'Замечательный дворец в старинном центре города. Только для тех кто может себе позволить дворец. Лакеев и прочих жокеев просим не беспокоить.'
 ];
 
+var PIN_POINTER_HEIGHT = 22;
+
 // var offerTypes = {
 //   flat: 'Квартира',
 //   bungalo: 'Бунгало',
@@ -66,20 +68,19 @@ var DESCRIPTIONS = [
 //   palace: 'Дворец'
 // };
 
-var HALF = 1 / 2;
+var adForm = document.querySelector('.ad-form');
 
 var addressField = document.querySelector('#address');
 var mapPin = document.querySelector('.map__pin--main'); // главная метка
-var pinPointerheight = 22;
 var findAddress = function (pin, active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
   if (active === true) {
-    var pinOffsetY = pin.offsetHeight + pinPointerheight;
+    var pinOffsetY = pin.offsetHeight + PIN_POINTER_HEIGHT;
   } else {
-    pinOffsetY = pin.offsetHeight * HALF;
+    pinOffsetY = pin.offsetHeight / 2;
   }
   return {
-    left: pin.offsetLeft + pin.offsetWidth * HALF,
-    top: pin.offsetTop + pinOffsetY
+    left: Math.floor(pin.offsetLeft + pin.offsetWidth / 2),
+    top: Math.floor(pin.offsetTop + pinOffsetY)
   };
 };
 
@@ -88,8 +89,8 @@ addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top; // выс�
 
 var pageDeactivate = function (flag) {
   var fieldsetCollection = document.querySelectorAll('form fieldset');
-  fieldsetCollection.forEach(function (elm) {
-    elm.disabled = flag;
+  fieldsetCollection.forEach(function (element) {
+    element.disabled = flag;
   });
 };
 
@@ -97,6 +98,7 @@ var pageActivate = function () {
   pageDeactivate(false);
   renderSimilarAds();
   checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
+  adForm.classList.remove('ad-form--disabled');
   document.querySelector('.map').classList.remove('map--faded');
   mainPinAddress = findAddress(mapPin, true); // координаты метки в активном состоянии
   addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
@@ -115,7 +117,9 @@ var getSimilarAds = function () {
 var capacity = document.querySelector('#capacity');
 var roomNumber = document.querySelector('#room_number');
 var checkCapacityValidity = function () {
-  if (roomNumber.value !== document.querySelector('#capacity').value) {
+  if ((parseInt(roomNumber.value, 10) !== 100 && parseInt(capacity.value, 10) === 0) || (parseInt(roomNumber.value, 10) === 100 && parseInt(capacity.value, 10) !== 0)) {
+    capacity.setCustomValidity('выбранное количество гостей не подходит под количество комнат');
+  } else if (parseInt(roomNumber.value, 10) < parseInt(capacity.value, 10)) {
     capacity.setCustomValidity('выбранное количество гостей не подходит под количество комнат');
   } else {
     capacity.setCustomValidity('');
