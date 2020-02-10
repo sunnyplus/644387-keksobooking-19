@@ -116,10 +116,11 @@ var getSimilarAds = function () {
 
 var capacity = document.querySelector('#capacity');
 var roomNumber = document.querySelector('#room_number');
+
 var checkCapacityValidity = function () {
-  if ((parseInt(roomNumber.value, 10) !== 100 && parseInt(capacity.value, 10) === 0) || (parseInt(roomNumber.value, 10) === 100 && parseInt(capacity.value, 10) !== 0)) {
-    capacity.setCustomValidity('выбранное количество гостей не подходит под количество комнат');
-  } else if (parseInt(roomNumber.value, 10) < parseInt(capacity.value, 10)) {
+  if ((parseInt(roomNumber.value, 10) !== 100 && parseInt(capacity.value, 10) === 0)
+    || (parseInt(roomNumber.value, 10) === 100 && parseInt(capacity.value, 10) !== 0)
+    || (parseInt(roomNumber.value, 10) < parseInt(capacity.value, 10))) {
     capacity.setCustomValidity('выбранное количество гостей не подходит под количество комнат');
   } else {
     capacity.setCustomValidity('');
@@ -130,9 +131,13 @@ var onFieldChange = function () {
   checkCapacityValidity();
 };
 
+var onFormSend = function () {
+  checkCapacityValidity();
+};
+
 var map = document.querySelector('.map');
 var mapWidth = map.offsetWidth;
-// var mapFilters = document.querySelector('.map__filters-container');
+// var mapFilters = document.querySelector('.map__filters-container'); // для показа объявления
 
 var getRandomRange = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -275,5 +280,7 @@ mapPin.addEventListener('keydown', function (evt) { // обработчик на
   }
 });
 
-capacity.addEventListener('change', onFieldChange);
-roomNumber.addEventListener('change', onFieldChange);
+capacity.addEventListener('change', onFieldChange); // событие изменение количества гостей
+roomNumber.addEventListener('change', onFieldChange); // событие изменение количества комнат
+adForm.addEventListener('submit', onFormSend); // событие отправки формы
+
