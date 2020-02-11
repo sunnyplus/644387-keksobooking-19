@@ -52,7 +52,7 @@ pageDeactivate(true);
 var getSimilarAds = function () {
   var similarAds = [];
   for (var k = 1; k <= AD_AMOUNT; k++) {
-    similarAds.push(getSimilarAd(k));
+    similarAds.push(window.data.getSimilarAd(k));
   }
   return similarAds;
 };

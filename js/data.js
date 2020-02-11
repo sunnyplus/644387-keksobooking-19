@@ -57,8 +57,6 @@
     'Замечательный дворец в старинном центре города. Только для тех кто может себе позволить дворец. Лакеев и прочих жокеев просим не беспокоить.'
   ];
 
-  var userNumber = 5; // выяснить для чего???
-
   var map = document.querySelector('.map');
   var mapWidth = map.offsetWidth;
 
@@ -97,8 +95,8 @@
     return array;
   };
 
-  window.data = {
-    RandomFeatures: {
+  var getSimilarAd = function (userNumber) {
+    return {
       author: {
         avatar: 'img/avatars/user0' + userNumber + '.png',
         offer: {
@@ -119,7 +117,11 @@
           y: getRandomRange(LOCATION_Y_MIN, LOCATION_Y_MAX)
         }
       }
-    },
+    };
+  };
+
+  window.data = {
+    getSimilarAd: getSimilarAd,
     getRandomFeatures: getRandomFeatures
   };
 })();
