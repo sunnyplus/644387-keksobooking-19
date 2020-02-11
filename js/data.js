@@ -16,6 +16,8 @@
   var LOCATION_Y_MIN = 130;
   var LOCATION_Y_MAX = 630;
 
+  var AD_AMOUNT = 8;
+
   var TITLES = [
     'Уютное гнездышко для молодоженов',
     'Маленькая квартирка рядом с парком',
@@ -120,9 +122,18 @@
     };
   };
 
+  var getSimilarAds = function () {
+    var similarAds = [];
+    for (var k = 1; k <= AD_AMOUNT; k++) {
+      similarAds.push(getSimilarAd(k));
+    }
+    return similarAds;
+  };
+
   window.data = {
     getSimilarAd: getSimilarAd,
-    getRandomFeatures: getRandomFeatures
+    getRandomFeatures: getRandomFeatures,
+    getSimilarAds: getSimilarAds
   };
 })();
 
