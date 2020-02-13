@@ -5,7 +5,7 @@
   var addressField = document.querySelector('#address');
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
 
-  var mainPinAddress = window.pin.findAddress(mapPin, false);
+  var mainPinAddress = window.map.findAddress(mapPin, false);
   addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top; // выставляем координаты метки в неактивном состоянии
 
   var pageDeactivate = function (flag) {
@@ -17,11 +17,11 @@
 
   var pageActivate = function () {
     pageDeactivate(false);
-    window.pin.renderSimilarAds();
+    window.map.renderSimilarAds();
     checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     adForm.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
-    mainPinAddress = window.pin.findAddress(mapPin, true); // координаты метки в активном состоянии
+    mainPinAddress = window.map.findAddress(mapPin, true); // координаты метки в активном состоянии
     addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
   };
 
