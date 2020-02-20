@@ -4,6 +4,8 @@
   var adForm = document.querySelector('.ad-form');
   var addressField = document.querySelector('#address');
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
+  var capacity = document.querySelector('#capacity');
+  var roomNumber = document.querySelector('#room_number');
 
   var mainPinAddress = window.map.findAddress(mapPin, false);
   addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top; // выставляем координаты метки в неактивном состоянии
@@ -17,7 +19,7 @@
 
   var pageActivate = function () {
     pageDeactivate(false);
-    window.map.renderSimilarAds();
+    window.map.drawSimilarAds();
     checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     adForm.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
@@ -27,10 +29,8 @@
 
   pageDeactivate(true);
 
-  var capacity = document.querySelector('#capacity');
-  var roomNumber = document.querySelector('#room_number');
-
   var checkCapacityValidity = function () {
+
     if ((parseInt(roomNumber.value, 10) !== 100 && parseInt(capacity.value, 10) === 0)
       || (parseInt(roomNumber.value, 10) === 100 && parseInt(capacity.value, 10) !== 0)
       || (parseInt(roomNumber.value, 10) < parseInt(capacity.value, 10))) {

@@ -2,19 +2,24 @@
 
 (function () {
 
-  var AD_AMOUNT = 8;
+  var renderSimilarAds = function () { // функция генерации пинов
+    var fragmentPin = document.createDocumentFragment();
+    var similarAds = window.data.getSimilarAds();
 
-  var getSimilarAds = function () {
-    var similarAds = [];
-    for (var k = 1; k <= AD_AMOUNT; k++) {
-      similarAds.push(window.data.getSimilarAd(k));
-    }
-    return similarAds;
+    similarAds.forEach(function (ad) {
+      var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin').cloneNode(true);
+      var offsetX = ad.author.location.x - pinTemplate.offsetWidth / 2;
+      var offsetY = ad.author.location.y - pinTemplate.offsetHeight;
+      pinTemplate.style = 'left: ' + offsetX + 'px; top: ' + offsetY + 'px';
+      pinTemplate.querySelector('img').src = ad.author.avatar;
+      pinTemplate.querySelector('img').alt = ad.author.offer.title;
+      fragmentPin.append(pinTemplate); // добавляем пин во фрагмент
+    });
+
+    return fragmentPin;
   };
 
-  var similarAds = getSimilarAds();
-
   window.pin = {
-    similarAds: similarAds
+    renderSimilarAds: renderSimilarAds
   };
 })();
