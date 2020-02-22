@@ -125,14 +125,15 @@
   var getSimilarAds = function () {
     var similarAds = [];
     for (var i = 1; i <= AD_AMOUNT; i++) {
-      similarAds.push(window.data.getSimilarAd(i));
+      similarAds.push(getSimilarAd(i));
     }
     return similarAds;
   };
 
   window.data = {
     getSimilarAd: getSimilarAd,
-    getSimilarAds: getSimilarAds,
+    // getSimilarAds: getSimilarAds,
+    similarAds: getSimilarAds(),
     getRandomFeatures: getRandomFeatures
   };
 })();
