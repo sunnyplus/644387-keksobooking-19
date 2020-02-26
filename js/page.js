@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var mapPin = document.querySelector('.map__pin--main'); // главная метка
-  var addressField = document.querySelector('#address');
 
   var pageDeactivate = function (flag) {
     var fieldsetCollection = document.querySelectorAll('form fieldset');
@@ -18,7 +16,13 @@
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
-    var mainPinAddress = window.map.findAddress(mapPin, true); // координаты метки в активном состоянии
+    drawPinCoords(true);
+  };
+
+  var drawPinCoords = function (isActive) { // отрисовка координат в активном/неактивном состояниях
+    var mapPin = document.querySelector('.map__pin--main'); // главная метка
+    var addressField = document.querySelector('#address');
+    var mainPinAddress = window.map.findAddress(mapPin, isActive);
     addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
   };
 
@@ -26,6 +30,7 @@
 
   window.page = {
     pageActivate: pageActivate,
-    pageDeactivate: pageDeactivate
+    pageDeactivate: pageDeactivate,
+    drawPinCoords: drawPinCoords
   };
 })();

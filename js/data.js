@@ -132,7 +132,6 @@
 
   window.data = {
     getSimilarAd: getSimilarAd,
-    // getSimilarAds: getSimilarAds,
     similarAds: getSimilarAds(),
     getRandomFeatures: getRandomFeatures
   };
