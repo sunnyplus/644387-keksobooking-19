@@ -2,14 +2,19 @@
 
 (function () {
 
-  var coordLimit = {
-    Y_MIN: 130,
-    Y_MAX: 630,
-    X_MIN: document.querySelector('.map').offsetLeft,
-    X_MAX: document.querySelector('.map').offsetWidth
-  };
+  var PIN_POINTER_HEIGHT = 22;
 
+  var pinsMap = document.querySelector('.map__pins');
   var pinHandle = document.querySelector('.map__pin--main');
+
+  var coordLimit = {
+    Y_MIN: 130 - pinHandle.offsetHeight - PIN_POINTER_HEIGHT,
+    Y_MAX: 630 - pinHandle.offsetHeight - PIN_POINTER_HEIGHT,
+    X_MIN: pinsMap.offsetLeft - pinHandle.offsetWidth / 2,
+    X_MAX: pinsMap.offsetWidth - pinHandle.offsetWidth / 2
+  };
+console.log(coordLimit);
+  
   pinHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -31,14 +36,16 @@
         y: moveEvt.clientY
       };
 
-      var pinCoords = window.map.findAddress(pinHandle, true);
+      // var pinCoords = window.map.findAddress(pinHandle, true);
 
-      if (pinCoords.left > coordLimit.X_MAX) {
+      if (pinHandle.offsetLeft > coordLimit.X_MAX) {
+        // pinHandle.left = coordLimit.X_MAX;
         pinHandle.style.left = coordLimit.X_MAX;
-      } else if (pinCoords.left < coordLimit.X_MIN) {
-        pinCoords.left = coordLimit.X_MIN;
+        console.log(pinHandle.offsetLeft);
+      } else if (pinHandle.offsetLeft < coordLimit.X_MIN) {
+        // pinHandle.left = coordLimit.X_MIN;
         pinHandle.style.left = coordLimit.X_MIN;
-        // console.log(pinCoords);
+        console.log(pinHandle.offsetLeft);
       } else {
         pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
       }
