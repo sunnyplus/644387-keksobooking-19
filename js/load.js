@@ -1,18 +1,16 @@
 'use strict';
 
 (function () {
+
   window.load = function (url, onSuccess, onError) {
+    var url = 'https://js.dump.academy/keksobooking/data';
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', function () {
-      try {
-        var response = JSON.parse(xhr.responseText);
-      } catch (jsonError) {
-        onError(jsonError);
-      }
+
       var error;
       switch (xhr.status) {
         case 200:
-          onSuccess(response);
+          onSuccess(xhr.responseText);
           break;
         case 400:
           error = 'Неверный запрос';

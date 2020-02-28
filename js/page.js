@@ -11,9 +11,11 @@
 
   var pageActivate = function () {
     pageDeactivate(false);
-    window.map.drawSimilarAds();
-    // window.map.drawSimilarAds(window.data.similarAds); // откуда брать массив данных?
-    // window.map.drawCard(window.data.similarAds[0]); // отрисовка карточки
+    window.load('https://js.dump.academy/keksobooking/data', function (similarAds) {
+      window.map.drawSimilarAds(window.data.similarAds);
+    }, function (error) {
+      // непонятно что делать с ошибками
+    });
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
