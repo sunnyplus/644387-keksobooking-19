@@ -3,14 +3,14 @@
 (function () {
 
   window.load = function (url, onSuccess, onError) {
-    var url = 'https://js.dump.academy/keksobooking/data';
     var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
 
       var error;
       switch (xhr.status) {
         case 200:
-          onSuccess(xhr.responseText);
+          onSuccess(xhr.response);
           break;
         case 400:
           error = 'Неверный запрос';

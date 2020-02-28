@@ -12,8 +12,9 @@
   var pageActivate = function () {
     pageDeactivate(false);
     window.load('https://js.dump.academy/keksobooking/data', function (similarAds) {
-      window.map.drawSimilarAds(window.data.similarAds);
-    }, function (error) {
+
+      window.map.drawSimilarAds(similarAds);
+    }, function () {
       // непонятно что делать с ошибками
     });
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
