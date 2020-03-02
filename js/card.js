@@ -22,11 +22,11 @@
     return newNode;
   };
 
-  var checkDataAds = function (nodeElement, dataValue) {
-    if (dataValue) {
-      nodeElement.textContent = dataValue;
+  var checkDataAds = function (checkElement, checkValue) {
+    if (checkValue) {
+      checkElement.textContent = checkValue;
     } else {
-      nodeElement.remove();
+      checkElement.remove();
     }
   };
 

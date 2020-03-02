@@ -32,6 +32,10 @@
 
     window.backend(window.map.drawSimilarAds, createErrorPopup);
 
+    window.backend(window.map.drawCard, createErrorPopup);
+
+    // window.map.drawCard;
+
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');

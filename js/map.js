@@ -29,11 +29,11 @@
 
   };
 
-  var drawCard = function (similarAd) { // функция отрисовки карточки
+  var drawCard = function (similarAds) { // нужно решить, передаём сюда все данные или только данные по одному объявлению????
 
     var fragmentCard = document.createDocumentFragment();
     var mapFilters = document.querySelector('.map__filters-container'); // для показа объявления
-    var newCard = window.card.renderCard(similarAd);
+    var newCard = window.card.renderCard(similarAds[0]);
     fragmentCard.append(newCard);
     mapFilters.before(fragmentCard);
     document.querySelector('.popup__photo').remove();
