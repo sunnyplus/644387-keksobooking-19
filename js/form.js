@@ -21,6 +21,11 @@
     }
   };
 
+  var setPinCoords = function (isActive) { // установка координат в активном/неактивном состояниях
+    mainPinAddress = window.map.findAddress(mapPin, isActive);
+    addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
+  };
+
   var onFieldChange = function () {
     checkCapacityValidity();
   };
@@ -34,6 +39,7 @@
   adForm.addEventListener('submit', onFormSend); // событие отправки формы
 
   window.form = {
-    checkCapacityValidity: checkCapacityValidity
+    checkCapacityValidity: checkCapacityValidity,
+    setPinCoords: setPinCoords
   };
 })();

@@ -51,13 +51,13 @@
         pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
       }
 
-      window.page.drawPinCoords(true);
+      window.form.setPinCoords(true);
     };
 
     var onMouseUp = function () {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-      window.page.drawPinCoords(true);
+      window.form.setPinCoords(true);
     };
 
     document.addEventListener('mousemove', onMouseMove);

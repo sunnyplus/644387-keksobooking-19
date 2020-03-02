@@ -22,11 +22,29 @@
     return newNode;
   };
 
+  var checkDataAds = function (nodeElement, dataValue) {
+    if (dataValue) {
+      nodeElement.textContent = dataValue;
+    } else {
+      nodeElement.remove();
+    }
+  };
+
   var renderCard = function (similarAd) { // функция генерации карточки
-    var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-    var newCard = cardTemplate.cloneNode(true);
+    var newCard = document.querySelector('#card')
+                  .content.querySelector('.map__card')
+                  .cardTemplate.cloneNode(true);
+
     newCard.querySelector('.popup__avatar').src = similarAd.author.avatar;
-    newCard.querySelector('.popup__title').textContent = similarAd.offer.title;
+
+    // if (similarAd.offer.title) {
+    //   newCard.querySelector('.popup__title').textContent = similarAd.offer.title;
+    // } else {
+    //   newCard.querySelector('.popup__title').remove();
+    // }
+
+    checkDataAds(newCard.querySelector('.popup__title'), similarAd.offer.title);
+
     newCard.querySelector('.popup__text--address').textContent = similarAd.offer.address;
     newCard.querySelector('.popup__text--price').textContent = similarAd.offer.price + ' ₽';
     newCard.querySelector('.popup__text--price').append(document.createElement('span'));

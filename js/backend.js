@@ -2,29 +2,39 @@
 
 (function () {
 
-  window.load = function (url, onSuccess, onError) {
+  var URL = 'https://js.dump.academy/keksobooking/data';
+
+  var Code = {
+    SUCCESS: 200,
+    WRONG_REQUEST: 400,
+    NOT_FOUND_ERROR: 404,
+    NOT_AUTH_USER: 401,
+    SERVER_ERROR: 500
+  };
+
+  window.backend = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
 
       var error;
       switch (xhr.status) {
-        case 200:
+        case Code.SUCCESS:
           onSuccess(xhr.response);
           break;
-        case 400:
+        case Code.WRONG_REQUEST:
           error = 'Неверный запрос';
           break;
 
-        case 401:
+        case Code.NOT_AUTH_USER:
           error = 'Пользователь не авторизован';
           break;
 
-        case 404:
+        case Code.NOT_FOUND_ERROR:
           error = 'Ничего не найдено';
           break;
 
-        case 500:
+        case Code.SERVER_ERROR:
           error = 'Ошибка сервера';
           break;
 
@@ -45,7 +55,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.open('GET', url);
+    xhr.open('GET', URL);
     xhr.send();
   };
 })();
