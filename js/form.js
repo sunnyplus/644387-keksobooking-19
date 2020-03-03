@@ -36,12 +36,10 @@
     window.upload(new FormData(adForm), onFormSubmitSuccess, onFormSubmitError);
   };
 
-  var onFormSubmitSuccess = function (response) {
-    console.log(response);
+  var onFormSubmitSuccess = function () {
   };
 
-  var onFormSubmitError = function (error) {
-    console.log(error);
+  var onFormSubmitError = function () {
   };
 
   capacity.addEventListener('change', onFieldChange); // событие изменение количества гостей
