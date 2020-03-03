@@ -12,7 +12,7 @@
   var renderCard = function (similarAd) { // функция генерации карточки
     var newCard = document.querySelector('#card')
                   .content.querySelector('.map__card')
-                  .cardTemplate.cloneNode(true);
+                  .cloneNode(true);
 
     var createFeatures = function (nodeTag, nodeClass, array, childTag, childClass) { // создание дом узла и дочерних элементов с классами для
       if (array.length > 0) {
@@ -65,24 +65,7 @@
 
     checkDoubleDataAds(newCard.querySelector('.popup__text--capacity'), similarAd.offer.rooms, similarAd.offer.guests, similarAd.offer.rooms + ' комнаты для ' + similarAd.offer.guests + ' гостей'); // проверяем наличие свойств guests и rooms
 
-    // newCard.querySelector('.popup__features').remove(); // проверяем наличие свойства features
-    // var featuresList = createFeatures('ul', 'popup__features', similarAd.offer.features, 'li', 'popup__feature');
-    // newCard.querySelector('.popup__description').before(featuresList);
-
-    createFeatures('ul', 'popup__features', similarAd.offer.features, 'li', 'popup__feature'); // проверяем наличие свойства features
-
-    // if (similarAd.offer.rooms && similarAd.offer.guests) { // проверяем наличие свойств guests и rooms
-    //   newCard.querySelector('.popup__text--capacity').textContent = similarAd.offer.rooms + ' комнаты для ' + similarAd.offer.guests + ' гостей';
-    // } else {
-    //   newCard.querySelector('.popup__text--capacity').remove();
-    // }
-
-
-    // newCard.querySelector('.popup__text--time').textContent = 'заезд после ' + similarAd.offer.checkin + ', выезд до ' + similarAd.offer.checkout;
-
-    // newCard.querySelector('.popup__description').textContent = similarAd.offer.description;
-    // newCard.querySelector('.popup__text--address').textContent = similarAd.offer.address;
-    // newCard.querySelector('.popup__type').textContent = offerTypes[similarAd.offer.type];
+    createFeatures('ul', 'popup__features', similarAd.offer.features, 'li', 'popup__feature'); // проверяем наличие свойства features и создаём узел
 
     if (similarAd.offer.photos.length > 0) { // проверяем наличие свойства photos
       for (var i = 0; i < similarAd.offer.photos.length; i++) {
