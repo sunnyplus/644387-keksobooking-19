@@ -30,9 +30,9 @@
 
     formActivate(false); // активация формы disabled = false
 
-    window.backend(window.map.drawSimilarAds, createErrorPopup);
+    window.load(window.map.drawSimilarAds, createErrorPopup);
 
-    window.backend(window.map.drawCard, createErrorPopup);
+    window.load(window.map.drawCard, createErrorPopup);
 
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');

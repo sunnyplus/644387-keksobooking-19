@@ -30,8 +30,18 @@
     checkCapacityValidity();
   };
 
-  var onFormSend = function () {
+  var onFormSend = function (evt) {
+    evt.preventDefault();
     checkCapacityValidity();
+    window.upload(new FormData(adForm), onFormSubmitSuccess, onFormSubmitError);
+  };
+
+  var onFormSubmitSuccess = function (response) {
+    console.log(response);
+  };
+
+  var onFormSubmitError = function (error) {
+    console.log(error);
   };
 
   capacity.addEventListener('change', onFieldChange); // событие изменение количества гостей
