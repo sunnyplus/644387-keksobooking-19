@@ -46,9 +46,23 @@
     window.page.createErrorPopup(error);
   };
 
+  var onFormChange = function (evt) {
+    switch (evt.target.id) {
+      case 'timein':
+        document.querySelector('#timeout').value = evt.target.value;
+        break;
+      case 'timeout':
+        document.querySelector('#timein').value = evt.target.value;
+        break;
+      default:
+        throw new Error('Несуществующий id: ' + evt.target.id);
+    }
+  };
+
   capacity.addEventListener('change', onFieldChange); // событие изменение количества гостей
   roomNumber.addEventListener('change', onFieldChange); // событие изменение количества комнат
   adForm.addEventListener('submit', onFormSend); // событие отправки формы
+  adForm.addEventListener('change', onFormChange);
 
   window.form = {
     checkCapacityValidity: checkCapacityValidity,
