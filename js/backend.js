@@ -13,55 +13,25 @@
     SERVER_ERROR: 500
   };
 
-  window.load = function (onSuccess, onError) {
+  var load = function (onSuccess, onError) {
+
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', function () {
-
-      var error;
-      switch (xhr.status) {
-        case Code.SUCCESS:
-          onSuccess(xhr.response);
-          break;
-        case Code.WRONG_REQUEST:
-          error = 'Неверный запрос';
-          break;
-
-        case Code.NOT_AUTH_USER:
-          error = 'Пользователь не авторизован';
-          break;
-
-        case Code.NOT_FOUND_ERROR:
-          error = 'Ничего не найдено';
-          break;
-
-        case Code.SERVER_ERROR:
-          error = 'Ошибка сервера';
-          break;
-
-        default:
-          error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
-      }
-
-      if (error) {
-        onError(error);
-      }
-    });
-
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
-
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
+    request(xhr, onSuccess, onError);
 
     xhr.open('GET', LOAD_URL);
     xhr.send();
   };
 
-  window.upload = function (data, onSuccess, onError) {
+  var upload = function (data, onSuccess, onError) {
+
     var xhr = new XMLHttpRequest();
+    request(xhr, onSuccess, onError);
+    xhr.open('POST', UPLOAD_URL);
+    xhr.send(data);
+  };
+
+  var request = function (xhr, onSuccess, onError) {
+
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
 
@@ -102,8 +72,10 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
+  };
 
-    xhr.open('GET', UPLOAD_URL);
-    xhr.send(data);
+  window.backend = {
+    load: load,
+    upload: upload
   };
 })();

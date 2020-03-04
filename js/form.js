@@ -33,13 +33,17 @@
   var onFormSend = function (evt) {
     evt.preventDefault();
     checkCapacityValidity();
-    window.upload(new FormData(adForm), onFormSubmitSuccess, onFormSubmitError);
+    window.backend.upload(new FormData(adForm), onFormSubmitSuccess, onFormSubmitError);
   };
 
   var onFormSubmitSuccess = function () {
+    window.page.createSuccessPopup();
+    document.addEventListener('keydown', window.page.onEscapePress);
+    document.querySelector('.success').addEventListener('click', window.page.onPopupClick);
   };
 
-  var onFormSubmitError = function () {
+  var onFormSubmitError = function (error) {
+    window.page.createErrorPopup(error);
   };
 
   capacity.addEventListener('change', onFieldChange); // событие изменение количества гостей
