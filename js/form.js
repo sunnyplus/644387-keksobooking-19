@@ -1,6 +1,14 @@
 'use strict';
 
 (function () {
+
+  var offerPrice = {
+    'bungalo': 0,
+    'flat': 1000,
+    'palace': 10000,
+    'house': 5000
+  };
+
   var adForm = document.querySelector('.ad-form');
   var addressField = document.querySelector('#address');
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
@@ -40,6 +48,7 @@
     window.page.createSuccessPopup();
     document.addEventListener('keydown', window.page.onEscapePress);
     document.querySelector('.success').addEventListener('click', window.page.onPopupClick);
+    adForm.reset();
   };
 
   var onFormSubmitError = function (error) {
@@ -47,15 +56,15 @@
   };
 
   var onFormChange = function (evt) {
-    switch (evt.target.id) {
-      case 'timein':
-        document.querySelector('#timeout').value = evt.target.value;
-        break;
-      case 'timeout':
-        document.querySelector('#timein').value = evt.target.value;
-        break;
-      default:
-        throw new Error('Несуществующий id: ' + evt.target.id);
+    if (evt.target.id === 'type') { // если меняется тип жилья, меняем минимальную цену
+      document.querySelector('#price').min = offerPrice[evt.target.value];
+      document.querySelector('#price').placeholder = offerPrice[evt.target.value];
+    }
+    if (evt.target.id === 'timein') {
+      document.querySelector('#timeout').value = evt.target.value;
+    }
+    if (evt.target.id === 'timeout') {
+      document.querySelector('#timein').value = evt.target.value;
     }
   };
 

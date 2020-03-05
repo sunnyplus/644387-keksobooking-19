@@ -4,6 +4,8 @@
   var PIN_POINTER_HEIGHT = 22;
 
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
+  // var similarPin = document.querySelectorAll('.map__pin'); // похожие метки
+  var mapPins = document.querySelector('.map__pins'); // блок с пинами
 
   var findAddress = function (pin, active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
     if (active === true) {
@@ -19,12 +21,12 @@
 
   var drawSimilarAds = function (similarAds) {
     var fragmentPin = document.createDocumentFragment();
-    similarAds.forEach(function (similarAd) {
+    similarAds.forEach(function (similarAd) { // этот массив и нужно передать в отрисовку карточки при клике
       var pinTemplate = window.pin.renderSimilarAds(similarAd);
+      pinTemplate.addEventListener('click', onSimilarPinPress); // обработчик на отрисованный пин
       fragmentPin.append(pinTemplate); // добавляем пин во фрагмент
     });
 
-    var mapPins = document.querySelector('.map__pins'); // блок пинов
     mapPins.append(fragmentPin);
 
   };
@@ -37,6 +39,9 @@
     fragmentCard.append(newCard);
     mapFilters.before(fragmentCard);
     document.querySelector('.popup__photo').remove();
+  };
+
+  var onSimilarPinPress = function () { // -----------------------------------------------------------------
   };
 
   mapPin.addEventListener('mousedown', function (evt) { // обработчик клика на главную метку

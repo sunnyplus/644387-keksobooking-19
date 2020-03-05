@@ -80,6 +80,7 @@
   };
 
   window.card = {
-    renderCard: renderCard
+    renderCard: renderCard,
+    offerTypes: offerTypes
   };
 })();
