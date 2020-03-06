@@ -68,12 +68,14 @@
     createFeatures('ul', 'popup__features', similarAd.offer.features, 'li', 'popup__feature'); // проверяем наличие свойства features и создаём узел
 
     if (similarAd.offer.photos.length > 0) { // проверяем наличие свойства photos
+
       for (var i = 0; i < similarAd.offer.photos.length; i++) {
         var photoTemplate = newCard.querySelector('.popup__photo').cloneNode(true);
         photoTemplate.src = similarAd.offer.photos[i];
         var photoPopups = newCard.querySelector('.popup__photos');
         photoPopups.append(photoTemplate);
       }
+      newCard.querySelector('.popup__photo').remove();
     }
 
     return newCard;
