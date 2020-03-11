@@ -9,41 +9,73 @@
     palace: 'Дворец'
   };
 
-  var createNode = function (nodeTag, nodeClass, array, childTag, childClass) { // создание дом узла и дочерних элементов с классами
-    var newNode = document.createElement(nodeTag);
-    newNode.classList.add(nodeClass);
-
-    array.forEach(function (element) {
-      var newNodeChild = document.createElement(childTag);
-      newNodeChild.className = childClass + ' ' + childClass + '--' + element;
-      newNode.append(newNodeChild);
-    });
-
-    return newNode;
-  };
-
   var renderCard = function (similarAd) { // функция генерации карточки
-    var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-    var newCard = cardTemplate.cloneNode(true);
-    newCard.querySelector('.popup__avatar').src = similarAd.author.avatar;
-    newCard.querySelector('.popup__title').textContent = similarAd.author.offer.title;
-    newCard.querySelector('.popup__text--address').textContent = similarAd.author.offer.address;
-    newCard.querySelector('.popup__text--price').textContent = similarAd.author.offer.price + ' ₽';
-    newCard.querySelector('.popup__text--price').append(document.createElement('span'));
-    newCard.querySelector('span').textContent = '/ночь';
-    newCard.querySelector('.popup__type').textContent = offerTypes[similarAd.author.offer.type];
-    newCard.querySelector('.popup__text--capacity').textContent = similarAd.author.offer.rooms + ' комнаты для ' + similarAd.author.offer.guests + ' гостей';
-    newCard.querySelector('.popup__text--time').textContent = 'заезд после ' + similarAd.author.offer.checkin + ', выезд до ' + similarAd.author.offer.checkout;
-    newCard.querySelector('.popup__features').remove(); // фичи
-    var featuresList = createNode('ul', 'popup__features', similarAd.author.offer.features, 'li', 'popup__feature');
-    newCard.querySelector('.popup__description').before(featuresList);
-    newCard.querySelector('.popup__description').textContent = similarAd.author.offer.description;
+    var newCard = document.querySelector('#card')
+                  .content.querySelector('.map__card')
+                  .cloneNode(true);
 
-    for (var i = 0; i < similarAd.author.offer.photos.length; i++) {
-      var photoTemplate = newCard.querySelector('.popup__photo').cloneNode(true);
-      photoTemplate.src = similarAd.author.offer.photos[i];
-      var photoPopups = newCard.querySelector('.popup__photos');
-      photoPopups.append(photoTemplate);
+    var createFeatures = function (nodeTag, nodeClass, array, childTag, childClass) { // создание дом узла и дочерних элементов с классами для
+      if (array.length > 0) {
+        newCard.querySelector('.popup__features').remove();
+        var newNode = document.createElement(nodeTag);
+        newNode.classList.add(nodeClass);
+
+        array.forEach(function (element) {
+          var newNodeChild = document.createElement(childTag);
+          newNodeChild.className = childClass + ' ' + childClass + '--' + element;
+          newNode.append(newNodeChild);
+        });
+
+        newCard.querySelector('.popup__description').before(newNode);
+      }
+    };
+
+    var checkDataAds = function (checkElement, checkValue, value) {
+      if (checkValue) {
+        checkElement.textContent = value;
+      } else {
+        checkElement.remove();
+      }
+    };
+
+    var checkDoubleDataAds = function (checkElement, checkFirstValue, checkSecondValue, value) {
+      if (checkFirstValue && checkSecondValue) {
+        checkElement.textContent = value;
+      } else {
+        checkElement.remove();
+      }
+    };
+
+    newCard.querySelector('.popup__avatar').src = similarAd.author.avatar;
+
+    checkDataAds(newCard.querySelector('.popup__title'), similarAd.offer.title, similarAd.offer.title); // проверяем наличие свойства title
+    checkDataAds(newCard.querySelector('.popup__text--address'), similarAd.offer.address, similarAd.offer.address); // проверяем наличие свойства address
+    checkDataAds(newCard.querySelector('.popup__description'), similarAd.offer.description, similarAd.offer.description); // проверяем наличие свойства description
+    checkDataAds(newCard.querySelector('.popup__type'), similarAd.offer.type, offerTypes[similarAd.offer.type]); // проверяем наличие свойства type
+
+    if (similarAd.offer.price) { // проверяем наличие свойства price
+      newCard.querySelector('.popup__text--price').textContent = similarAd.offer.price + ' ₽';
+      newCard.querySelector('.popup__text--price').append(document.createElement('span'));
+      newCard.querySelector('span').textContent = '/ночь';
+    } else {
+      newCard.querySelector('.popup__text--price').remove();
+    }
+
+    checkDoubleDataAds(newCard.querySelector('.popup__text--time'), similarAd.offer.checkin, similarAd.offer.checkout, 'заезд после ' + similarAd.offer.checkin + ', выезд до ' + similarAd.offer.checkout); // проверяем наличие свойств checkin и checkout
+
+    checkDoubleDataAds(newCard.querySelector('.popup__text--capacity'), similarAd.offer.rooms, similarAd.offer.guests, similarAd.offer.rooms + ' комнаты для ' + similarAd.offer.guests + ' гостей'); // проверяем наличие свойств guests и rooms
+
+    createFeatures('ul', 'popup__features', similarAd.offer.features, 'li', 'popup__feature'); // проверяем наличие свойства features и создаём узел
+
+    if (similarAd.offer.photos.length > 0) { // проверяем наличие свойства photos
+
+      for (var i = 0; i < similarAd.offer.photos.length; i++) {
+        var photoTemplate = newCard.querySelector('.popup__photo').cloneNode(true);
+        photoTemplate.src = similarAd.offer.photos[i];
+        var photoPopups = newCard.querySelector('.popup__photos');
+        photoPopups.append(photoTemplate);
+      }
+      newCard.querySelector('.popup__photo').remove();
     }
 
     return newCard;
@@ -51,6 +83,6 @@
 
   window.card = {
     renderCard: renderCard,
-    createNode: createNode
+    offerTypes: offerTypes
   };
 })();

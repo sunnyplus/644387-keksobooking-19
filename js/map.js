@@ -4,6 +4,7 @@
   var PIN_POINTER_HEIGHT = 22;
 
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
+  var mapPins = document.querySelector('.map__pins'); // блок с пинами
 
   var findAddress = function (pin, active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
     if (active === true) {
@@ -20,16 +21,19 @@
   var drawSimilarAds = function (similarAds) {
     var fragmentPin = document.createDocumentFragment();
     similarAds.forEach(function (similarAd) {
+      
       var pinTemplate = window.pin.renderSimilarAds(similarAd);
+      pinTemplate.addEventListener('click', function () {
+        drawCard(similarAd); // по клику на пин отрисовываем карточку
+      }); // обработчик на отрисованный пин
       fragmentPin.append(pinTemplate); // добавляем пин во фрагмент
     });
 
-    var mapPins = document.querySelector('.map__pins'); // блок пинов
     mapPins.append(fragmentPin);
 
   };
 
-  var drawCard = function (similarAd) { // функция отрисовки карточки
+  var drawCard = function (similarAd) {
 
     var fragmentCard = document.createDocumentFragment();
     var mapFilters = document.querySelector('.map__filters-container'); // для показа объявления

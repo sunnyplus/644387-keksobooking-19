@@ -1,31 +1,76 @@
 'use strict';
 
 (function () {
-  var mapPin = document.querySelector('.map__pin--main'); // главная метка
-  var addressField = document.querySelector('#address');
 
-  var pageDeactivate = function (flag) {
-    var fieldsetCollection = document.querySelectorAll('form fieldset');
-    fieldsetCollection.forEach(function (element) {
+  var main = document.querySelector('main');
+  var formActivate = function (flag) {
+
+    document.querySelectorAll('form fieldset').forEach(function (element) {
       element.disabled = flag;
     });
   };
 
+  var onTryAgainButtonPress = function (evt) {
+    evt.preventDefault();
+    document.querySelector('.error').remove();
+    formActivate(true);
+    document.querySelector('.ad-form').classList.add('ad-form--disabled');
+    document.querySelector('.map').classList.add('map--faded');
+  };
+
+  var onEscapePress = function (evt) {
+    evt.preventDefault();
+    if (evt.key === 'Escape') {
+      document.querySelector('.success').remove();
+      document.removeEventListener('keydown', window.page.onEscapePress);
+    }
+  };
+
+  var onPopupClick = function (evt) {
+    evt.stopPropagation();
+    if (evt.target.className === 'success') {
+      document.querySelector('.success').remove();
+      document.removeEventListener('keydown', window.page.onEscapePress);
+    }
+  };
+
+  var createSuccessPopup = function () {
+    var successFragment = document.createDocumentFragment();
+    var successPopup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+    successFragment.append(successPopup);
+    main.append(successFragment);
+  };
+
+  var createErrorPopup = function (error) {
+    var errorFragment = document.createDocumentFragment();
+    var errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+    errorPopup.querySelector('.error__message').textContent = error;
+    errorFragment.append(errorPopup);
+    main.append(errorFragment);
+    errorPopup.querySelector('.error__button').addEventListener('submit', onTryAgainButtonPress);
+  };
+
   var pageActivate = function () {
-    pageDeactivate(false);
-    window.map.drawSimilarAds(window.data.similarAds); // откуда брать массив данных?
-    // window.map.drawCard(window.data.similarAds[0]); // отрисовка карточки
+
+    formActivate(false); // активация формы disabled = false
+
+    window.backend.load(window.map.drawSimilarAds, createErrorPopup);
+
+    // window.backend.load(window.map.drawCard, createErrorPopup);
+
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
-    var mainPinAddress = window.map.findAddress(mapPin, true); // координаты метки в активном состоянии
-    addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
+    window.form.setPinCoords(true);
   };
 
-  pageDeactivate(true);
+  formActivate(true);
 
   window.page = {
     pageActivate: pageActivate,
-    pageDeactivate: pageDeactivate
+    createErrorPopup: createErrorPopup,
+    createSuccessPopup: createSuccessPopup,
+    onEscapePress: onEscapePress,
+    onPopupClick: onPopupClick
   };
 })();
