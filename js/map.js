@@ -19,8 +19,8 @@
   };
 
   var drawSimilarAds = function (similarAds) {
-    window.map.similarAds = similarAds;
-    console.log(window.map.similarAds);
+    // window.map.similarAds = similarAds;
+    // console.log(window.map.similarAds);
     var fragmentPin = document.createDocumentFragment();
     var filteredSimilarAds = window.filter.amount(similarAds, 5);
     filteredSimilarAds.forEach(function (similarAd) {

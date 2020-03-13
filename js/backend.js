@@ -39,6 +39,7 @@
       switch (xhr.status) {
         case Code.SUCCESS:
           onSuccess(xhr.response);
+          window.backend.similarAds = xhr.response;
           break;
         case Code.WRONG_REQUEST:
           error = 'Неверный запрос';
