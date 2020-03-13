@@ -19,9 +19,11 @@
   };
 
   var drawSimilarAds = function (similarAds) {
+    window.map.similarAds = similarAds;
+    // console.log(window.map.similarAds);
     var fragmentPin = document.createDocumentFragment();
-    similarAds.forEach(function (similarAd) {
-      
+    var filteredSimilarAds = window.filter.amount(similarAds, 5);
+    filteredSimilarAds.forEach(function (similarAd) {
       var pinTemplate = window.pin.renderSimilarAds(similarAd);
       pinTemplate.addEventListener('click', function () {
         drawCard(similarAd); // по клику на пин отрисовываем карточку
