@@ -2,24 +2,45 @@
 
 (function () {
   var filtersForm = document.querySelector('.map__filters');
-  var filteredData;
+  var housingPrices = {
+	'any': {
+		'min': 0,
+		'max': 1000000
+	},
+	'low': {
+		'min': 0,
+		'max': 9999
+	},
+	'middle': {
+		'min': 10000,
+		'max': 50000
+	},
+	'high': {
+		'min': 50000,
+		'max': 1000000
+	}
+  }
+  
   var onFiltersFormChange = function (evt) {
+	var filteredData = window.map.similarAds.slice();
     switch (evt.target.name) {
       case 'features':
         // console.log('это фичи');
         break;
       case 'housing-price':
-        // console.log('изменилась цена');
+		filteredData = filteredData.filter(function (it) {
+			return it.offer.price > housingPrices[evt.target.value]['min'];
+		});
+		reDrawSimilarAds(filteredData);
         break;
       case 'housing-rooms':
         // console.log('изменилось кол-во комнат');
         break;
       case 'housing-type':
-        // console.log('изменилcя тип жилья');
-        filteredData = window.map.similarAds.filter(function (it) {
+        filteredData = filteredData.filter(function (it) {
           return it.offer.type === evt.target.value;
         });
-        reDrawSimilarAds(filteredData);
+		reDrawSimilarAds(filteredData);
         break;
       case 'housing-guests':
         // console.log('изменилось кол-во гостей');
