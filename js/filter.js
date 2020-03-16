@@ -5,11 +5,11 @@
   var housingPrices = {
     'any': {
       'min': 0,
-      'max': 1000000
+      'max': 10000000
     },
     'low': {
       'min': 0,
-      'max': 9999
+      'max': 10000
     },
     'middle': {
       'min': 10000,
@@ -17,47 +17,71 @@
     },
     'high': {
       'min': 50000,
-      'max': 1000000
+      'max': 10000000
     }
-  }
+  };
 
-  var filteredData;
-  
-  var onFiltersFormChange = function (evt) {
+  var backUpData;
 
-    var fd = new FormData(filtersForm);
-    filteredData = window.backend.similarAds.slice();
+  var onFiltersFormChange = function () {
 
-    if (fd.getAll('features').length > 0) {
-      fd.getAll('features').forEach(function (element) {
-        filteredData = filteredData.filter(function (it) {
-          return it.offer.features.indexOf(element) !== -1;
-        });
-      });
+    var formData = new FormData(filtersForm);
+
+    backUpData = window.map.similarAds.slice();
+    var filteredData = [];
+    var isFeaturesAvailable = function (features) {
+      var featureAvailable;
+      for (var k = 0; k < formData.getAll('features').length; k++) {
+        if (features.indexOf(formData.getAll('features')[k]) === -1) {
+          featureAvailable = false;
+          break;
+        } else {
+          featureAvailable = true;
+        }
+      }
+      return featureAvailable;
+    };
+
+    for (var i = 0; i < backUpData.length; i++) {
+      var j = 1;
+      if (isFeaturesAvailable(backUpData[i].offer.features)) {
+        filteredData.push(backUpData[i]);
+        console.log(isFeaturesAvailable(backUpData[i].offer.features));
+        j = j + 1;
+      }
+      if (j === 5) {
+        break;
+      }
     }
-    if (fd.getAll('housing-type')[0] !== 'any') {
-      filteredData = filteredData.filter(function (it) {
-        return it.offer.type === fd.getAll('housing-type')[0];
-      });
-    }
-    if (fd.getAll('housing-rooms')[0] !== 'any') {
-      filteredData = filteredData.filter(function (it) {
-        return it.offer.rooms === Number(fd.getAll('housing-rooms')[0]);
-      });
-    }
-    if (fd.getAll('housing-guests')[0] !== 'any') {
-      filteredData = filteredData.filter(function (it) {
-        return it.offer.guests === Number(fd.getAll('housing-guests')[0]);
-      });
-    }
-    if (fd.getAll('housing-price')[0] !== 'any') {
-      filteredData = filteredData.filter(function (it) {
-        return it.offer.price === housingPrices[fd.getAll('housing-price')[0]]['min']
-      });
-    }
-    console.log(filteredData);
     reDrawSimilarAds(filteredData);
+    // if (formData.getAll('features').length > 0) {
+    //   formData.getAll('features').forEach(function (element) {
+    //     filteredData = filteredData.filter(function (it) {
+    //       return it.offer.features.indexOf(element) !== -1;
+    //     });
+    //   });
 
+    // }
+    // if (formData.getAll('housing-type')[0] !== 'any') {
+    //   filteredData = filteredData.filter(function (it) {
+    //     return it.offer.type === formData.getAll('housing-type')[0];
+    //   });
+    // }
+    // if (formData.getAll('housing-rooms')[0] !== 'any') {
+    //   filteredData = filteredData.filter(function (it) {
+    //     return it.offer.rooms === Number(formData.getAll('housing-rooms')[0]);
+    //   });
+    // }
+    // if (formData.getAll('housing-guests')[0] !== 'any') {
+    //   filteredData = filteredData.filter(function (it) {
+    //     return it.offer.guests === Number(formData.getAll('housing-guests')[0]);
+    //   });
+    // }
+    // if (formData.getAll('housing-price')[0] !== 'any') {
+    //   filteredData = filteredData.filter(function (it) {
+    //     return it.offer.price === housingPrices[formData.getAll('housing-price')[0]]['min'];
+    //   });
+    // }
     if (document.querySelector('.map__card')) {
       document.querySelector('.map__card').remove();
     }
