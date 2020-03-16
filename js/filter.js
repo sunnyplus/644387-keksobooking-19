@@ -41,28 +41,21 @@
       }
       return featureAvailable;
     };
-
+    var j = 0;
     for (var i = 0; i < backUpData.length; i++) {
-      var j = 1;
-
+      
       if ((backUpData[i].offer.type === formData.getAll('housing-type')[0] || formData.getAll('housing-type')[0] === 'any')
       && (backUpData[i].offer.rooms === Number(formData.getAll('housing-rooms')[0]) || formData.getAll('housing-rooms')[0] === 'any')
       && (backUpData[i].offer.guests === Number(formData.getAll('housing-guests')[0]) || formData.getAll('housing-guests')[0] === 'any')
-&& (backUpData[i].offer.price > housingPrices[formData.getAll('housing-price')[0]]['min'] && backUpData[i].offer.price < housingPrices[formData.getAll('housing-price')[0]]['max'])) {
+      && (backUpData[i].offer.price > housingPrices[formData.getAll('housing-price')[0]]['min'] && backUpData[i].offer.price < housingPrices[formData.getAll('housing-price')[0]]['max'])
+      && (isFeaturesAvailable(backUpData[i].offer.features)) || formData.getAll('features').length === 0) {
         filteredData.push(backUpData[i]);
-        j = j + 1;
-      }
-
-      if (isFeaturesAvailable(backUpData[i].offer.features)) {
-        filteredData.push(backUpData[i]);
-        console.log(isFeaturesAvailable(backUpData[i].offer.features));
         j = j + 1;
       }
       if (j === 5) {
         break;
       }
     }
-    reDrawSimilarAds(filteredData);
     // if (formData.getAll('features').length > 0) {
     //   formData.getAll('features').forEach(function (element) {
     //     filteredData = filteredData.filter(function (it) {
@@ -94,6 +87,7 @@
     if (document.querySelector('.map__card')) {
       document.querySelector('.map__card').remove();
     }
+    reDrawSimilarAds(filteredData);
   };
   filtersForm.addEventListener('change', onFiltersFormChange);
 
@@ -106,8 +100,8 @@
       if (element.className === 'map__pin') {
         element.remove();
       }
-      window.map.drawSimilarAds(filteredSimilarAds);
     });
+    window.map.drawSimilarAds(filteredSimilarAds);
   };
 
   window.filter = {
