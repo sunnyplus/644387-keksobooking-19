@@ -44,6 +44,15 @@
 
     for (var i = 0; i < backUpData.length; i++) {
       var j = 1;
+
+      if ((backUpData[i].offer.type === formData.getAll('housing-type')[0] || formData.getAll('housing-type')[0] === 'any')
+      && (backUpData[i].offer.rooms === Number(formData.getAll('housing-rooms')[0]) || formData.getAll('housing-rooms')[0] === 'any')
+      && (backUpData[i].offer.guests === Number(formData.getAll('housing-guests')[0]) || formData.getAll('housing-guests')[0] === 'any')
+&& (backUpData[i].offer.price > housingPrices[formData.getAll('housing-price')[0]]['min'] && backUpData[i].offer.price < housingPrices[formData.getAll('housing-price')[0]]['max'])) {
+        filteredData.push(backUpData[i]);
+        j = j + 1;
+      }
+
       if (isFeaturesAvailable(backUpData[i].offer.features)) {
         filteredData.push(backUpData[i]);
         console.log(isFeaturesAvailable(backUpData[i].offer.features));
