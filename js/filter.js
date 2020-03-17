@@ -45,12 +45,11 @@
       return featureAvailable;
     };
 
-    var getformData = function (formFilterData, inputName) {
-      return formFilterData.getAll(inputName)[0];
-    }
+    var getformData = function (formData, inputName) {
+      return formData.getAll(inputName)[0];
+    };
 
     for (var i = 0; i < backUpData.length; i++) {
-      
       if ((backUpData[i].offer.type === getformData(formFilterData, 'housing-type') || getformData(formFilterData, 'housing-type') === 'any')
       && (backUpData[i].offer.rooms === Number(getformData(formFilterData, 'housing-rooms')) || getformData(formFilterData, 'housing-rooms') === 'any')
       && (backUpData[i].offer.guests === Number(getformData(formFilterData, 'housing-guests')) || getformData(formFilterData, 'housing-guests') === 'any')
