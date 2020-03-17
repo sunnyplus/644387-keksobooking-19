@@ -100,7 +100,7 @@
   var onSuccess = function (similarAds) {
     window.data.similarAds = similarAds;
     window.map.drawSimilarAds(similarAds);
-  }
+  };
 
   var getSimilarAd = function (userNumber) {
     return {

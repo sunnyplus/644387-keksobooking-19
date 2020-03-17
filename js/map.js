@@ -46,7 +46,7 @@
 
   var onPopupClose = function () {
     document.querySelector('.map__card').remove();
-  }
+  };
 
   mapPin.addEventListener('mousedown', function (evt) { // обработчик клика на главную метку
     if (evt.button === 0) {
