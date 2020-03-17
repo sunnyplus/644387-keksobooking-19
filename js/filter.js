@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+
+  var MAX_ADS = 5;
+  var DEBOUNCE_INTERVAL = 500;
   var filtersForm = document.querySelector('.map__filters');
   var housingPrices = {
     'any': {
@@ -25,14 +28,14 @@
 
   var onFiltersFormChange = function () {
 
-    var formData = new FormData(filtersForm);
+    var formFilterData = new FormData(filtersForm);
 
-    backUpData = window.map.similarAds.slice();
+    backUpData = window.data.similarAds.slice();
     var filteredData = [];
     var isFeaturesAvailable = function (features) {
       var featureAvailable;
-      for (var k = 0; k < formData.getAll('features').length; k++) {
-        if (features.indexOf(formData.getAll('features')[k]) === -1) {
+      for (var k = 0; k < formFilterData.getAll('features').length; k++) {
+        if (features.indexOf(formFilterData.getAll('features')[k]) === -1) {
           featureAvailable = false;
           break;
         } else {
@@ -41,55 +44,38 @@
       }
       return featureAvailable;
     };
-    var j = 0;
+
+    var getformData = function (formFilterData, inputName) {
+      return formFilterData.getAll(inputName)[0];
+    }
+
     for (var i = 0; i < backUpData.length; i++) {
       
-      if ((backUpData[i].offer.type === formData.getAll('housing-type')[0] || formData.getAll('housing-type')[0] === 'any')
-      && (backUpData[i].offer.rooms === Number(formData.getAll('housing-rooms')[0]) || formData.getAll('housing-rooms')[0] === 'any')
-      && (backUpData[i].offer.guests === Number(formData.getAll('housing-guests')[0]) || formData.getAll('housing-guests')[0] === 'any')
-      && (backUpData[i].offer.price > housingPrices[formData.getAll('housing-price')[0]]['min'] && backUpData[i].offer.price < housingPrices[formData.getAll('housing-price')[0]]['max'])
-      && (isFeaturesAvailable(backUpData[i].offer.features)) || formData.getAll('features').length === 0) {
+      if ((backUpData[i].offer.type === getformData(formFilterData, 'housing-type') || getformData(formFilterData, 'housing-type') === 'any')
+      && (backUpData[i].offer.rooms === Number(getformData(formFilterData, 'housing-rooms')) || getformData(formFilterData, 'housing-rooms') === 'any')
+      && (backUpData[i].offer.guests === Number(getformData(formFilterData, 'housing-guests')) || getformData(formFilterData, 'housing-guests') === 'any')
+      && (backUpData[i].offer.price > housingPrices[getformData(formFilterData, 'housing-price')]['min'] && backUpData[i].offer.price < housingPrices[getformData(formFilterData, 'housing-price')]['max'])
+      && (isFeaturesAvailable(backUpData[i].offer.features) || formFilterData.getAll('features').length === 0)) {
         filteredData.push(backUpData[i]);
-        j = j + 1;
       }
-      if (j === 5) {
+      if (filteredData.length === MAX_ADS) {
         break;
       }
     }
-    // if (formData.getAll('features').length > 0) {
-    //   formData.getAll('features').forEach(function (element) {
-    //     filteredData = filteredData.filter(function (it) {
-    //       return it.offer.features.indexOf(element) !== -1;
-    //     });
-    //   });
 
-    // }
-    // if (formData.getAll('housing-type')[0] !== 'any') {
-    //   filteredData = filteredData.filter(function (it) {
-    //     return it.offer.type === formData.getAll('housing-type')[0];
-    //   });
-    // }
-    // if (formData.getAll('housing-rooms')[0] !== 'any') {
-    //   filteredData = filteredData.filter(function (it) {
-    //     return it.offer.rooms === Number(formData.getAll('housing-rooms')[0]);
-    //   });
-    // }
-    // if (formData.getAll('housing-guests')[0] !== 'any') {
-    //   filteredData = filteredData.filter(function (it) {
-    //     return it.offer.guests === Number(formData.getAll('housing-guests')[0]);
-    //   });
-    // }
-    // if (formData.getAll('housing-price')[0] !== 'any') {
-    //   filteredData = filteredData.filter(function (it) {
-    //     return it.offer.price === housingPrices[formData.getAll('housing-price')[0]]['min'];
-    //   });
-    // }
     if (document.querySelector('.map__card')) {
       document.querySelector('.map__card').remove();
     }
     reDrawSimilarAds(filteredData);
   };
-  filtersForm.addEventListener('change', onFiltersFormChange);
+
+  var lastTimeOut;
+  filtersForm.addEventListener('change', function () {
+    if (lastTimeOut) {
+      window.clearTimeout(lastTimeOut);
+    }
+    lastTimeOut = window.setTimeout(onFiltersFormChange, DEBOUNCE_INTERVAL);
+  });
 
   var amount = function (initialData, dataAmount) {
     return initialData.slice(0, dataAmount);

@@ -97,6 +97,11 @@
     return array;
   };
 
+  var onSuccess = function (similarAds) {
+    window.data.similarAds = similarAds;
+    window.map.drawSimilarAds(similarAds);
+  }
+
   var getSimilarAd = function (userNumber) {
     return {
       author: {
@@ -133,7 +138,8 @@
   window.data = {
     getSimilarAd: getSimilarAd,
     similarAds: getSimilarAds(),
-    getRandomFeatures: getRandomFeatures
+    getRandomFeatures: getRandomFeatures,
+    onSuccess: onSuccess
   };
 })();
 

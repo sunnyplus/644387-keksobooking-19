@@ -54,7 +54,8 @@
 
     formActivate(false); // активация формы disabled = false
 
-    window.backend.load(window.map.drawSimilarAds, createErrorPopup);
+    // window.backend.load(window.map.drawSimilarAds, createErrorPopup);
+    window.backend.load(window.data.onSuccess, createErrorPopup);
 
     // window.backend.load(window.map.drawCard, createErrorPopup);
 

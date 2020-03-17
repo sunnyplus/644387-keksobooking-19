@@ -19,15 +19,13 @@
   };
 
   var drawSimilarAds = function (similarAds) {
-    // window.map.similarAds = similarAds;
-    // console.log(similarAds);
     var fragmentPin = document.createDocumentFragment();
     var filteredSimilarAds = window.filter.amount(similarAds, 5);
     filteredSimilarAds.forEach(function (similarAd) {
       var pinTemplate = window.pin.renderSimilarAds(similarAd);
       pinTemplate.addEventListener('click', function () {
         drawCard(similarAd); // по клику на пин отрисовываем карточку
-      }); // обработчик на отрисованный пин
+      });
       fragmentPin.append(pinTemplate); // добавляем пин во фрагмент
     });
 
@@ -43,7 +41,12 @@
     fragmentCard.append(newCard);
     mapFilters.before(fragmentCard);
     document.querySelector('.popup__photo').remove();
+    newCard.querySelector('.popup__close').addEventListener('click', onPopupClose);
   };
+
+  var onPopupClose = function () {
+    document.querySelector('.map__card').remove();
+  }
 
   mapPin.addEventListener('mousedown', function (evt) { // обработчик клика на главную метку
     if (evt.button === 0) {
