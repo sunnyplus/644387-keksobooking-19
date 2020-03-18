@@ -5,6 +5,7 @@
 
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
   var mapPins = document.querySelector('.map__pins'); // блок с пинами
+  var filtersForm = document.querySelector('.map__filters');
 
   var findAddress = function (pin, active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
     if (active === true) {
@@ -30,7 +31,7 @@
     });
 
     mapPins.append(fragmentPin);
-
+    window.page.formActivate(filtersForm, false);
   };
 
   var drawCard = function (similarAd) {

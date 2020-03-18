@@ -3,9 +3,16 @@
 (function () {
 
   var main = document.querySelector('main');
-  var formActivate = function (flag) {
+  var adForm = document.querySelector('.ad-form');
+  var filtersForm = document.querySelector('.map__filters');
 
-    document.querySelectorAll('form fieldset').forEach(function (element) {
+  var formActivate = function (form, flag) {
+
+    form.querySelectorAll('form fieldset').forEach(function (element) {
+      element.disabled = flag;
+    });
+
+    form.querySelectorAll('form select').forEach(function (element) {
       element.disabled = flag;
     });
   };
@@ -13,7 +20,7 @@
   var onTryAgainButtonPress = function (evt) {
     evt.preventDefault();
     document.querySelector('.error').remove();
-    formActivate(true);
+    formActivate(adForm, true);
     document.querySelector('.ad-form').classList.add('ad-form--disabled');
     document.querySelector('.map').classList.add('map--faded');
   };
@@ -52,12 +59,9 @@
 
   var pageActivate = function () {
 
-    formActivate(false); // активация формы disabled = false
+    formActivate(adForm, false); // активация формы adForm disabled = false
 
-    // window.backend.load(window.map.drawSimilarAds, createErrorPopup);
     window.backend.load(window.data.onSuccess, createErrorPopup);
-
-    // window.backend.load(window.map.drawCard, createErrorPopup);
 
     window.form.checkCapacityValidity(); // проверка на валидность поля capacity (кол-во гостей)
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');
@@ -65,13 +69,16 @@
     window.form.setPinCoords(true);
   };
 
-  formActivate(true);
+  formActivate(adForm, true);
+  formActivate(filtersForm, true);
+
 
   window.page = {
     pageActivate: pageActivate,
     createErrorPopup: createErrorPopup,
     createSuccessPopup: createSuccessPopup,
     onEscapePress: onEscapePress,
-    onPopupClick: onPopupClick
+    onPopupClick: onPopupClick,
+    formActivate: formActivate
   };
 })();

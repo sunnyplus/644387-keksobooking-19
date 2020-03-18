@@ -14,6 +14,7 @@
     X_MAX: pinsMap.offsetWidth - pinHandle.offsetWidth / 2
   };
 
+
   pinHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -36,17 +37,18 @@
       };
 
       if (pinHandle.offsetLeft > coordLimit.X_MAX) {
-        pinHandle.style.left = coordLimit.X_MAX;
+        pinHandle.style.left = coordLimit.X_MAX + 'px';
       } else if (pinHandle.offsetLeft < coordLimit.X_MIN) {
-        pinHandle.style.left = coordLimit.X_MIN;
+        pinHandle.style.left = coordLimit.X_MIN + 'px'; // 32.5 - не работает
+        // pinHandle.style.left = '-32.4px'; //  работает
       } else {
         pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
       }
 
       if (pinHandle.offsetTop > coordLimit.Y_MAX) {
-        pinHandle.style.top = coordLimit.Y_MAX;
+        pinHandle.style.top = coordLimit.Y_MAX + 'px';
       } else if (pinHandle.offsetTop < coordLimit.Y_MIN) {
-        pinHandle.style.top = coordLimit.Y_MIN;
+        pinHandle.style.top = coordLimit.Y_MIN + 'px';
       } else {
         pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
       }
