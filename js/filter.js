@@ -3,7 +3,7 @@
 (function () {
 
   var MAX_ADS = 5;
-  var DEBOUNCE_INTERVAL = 500;
+  
   var filtersForm = document.querySelector('.map__filters');
   var housingPrices = {
     'any': {
@@ -26,7 +26,7 @@
 
   var backUpData;
 
-  var onFiltersFormChange = function () {
+  var filterData = function () {
 
     var formFilterData = new FormData(filtersForm);
 
@@ -68,13 +68,16 @@
     reDrawSimilarAds(filteredData);
   };
 
-  var lastTimeOut;
-  filtersForm.addEventListener('change', function () {
-    if (lastTimeOut) {
-      window.clearTimeout(lastTimeOut);
-    }
-    lastTimeOut = window.setTimeout(onFiltersFormChange, DEBOUNCE_INTERVAL);
-  });
+  // var lastTimeOut;
+  // var on = function () {
+
+  // };
+
+  var onFiltersFormChange = function () {
+    window.debounce(filterData);
+  };
+
+  filtersForm.addEventListener('change', onFiltersFormChange);
 
   var amount = function (initialData, dataAmount) {
     return initialData.slice(0, dataAmount);

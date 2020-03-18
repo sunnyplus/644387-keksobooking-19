@@ -35,7 +35,7 @@
   };
 
   var drawCard = function (similarAd) {
-
+    window.util.dropElement('.map__card');
     var fragmentCard = document.createDocumentFragment();
     var mapFilters = document.querySelector('.map__filters-container'); // для показа объявления
     var newCard = window.card.renderCard(similarAd);
