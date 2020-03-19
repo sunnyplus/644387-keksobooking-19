@@ -20,9 +20,10 @@
   var onTryAgainButtonPress = function (evt) {
     evt.preventDefault();
     document.querySelector('.error').remove();
-    formActivate(adForm, true);
-    document.querySelector('.ad-form').classList.add('ad-form--disabled');
-    document.querySelector('.map').classList.add('map--faded');
+    // formActivate(adForm, true);
+    // document.querySelector('.ad-form').classList.add('ad-form--disabled');
+    // document.querySelector('.map').classList.add('map--faded');
+    pageDeactivate();
   };
 
   var onEscapePress = function (evt) {
@@ -54,7 +55,9 @@
     errorPopup.querySelector('.error__message').textContent = error;
     errorFragment.append(errorPopup);
     main.append(errorFragment);
-    errorPopup.querySelector('.error__button').addEventListener('submit', onTryAgainButtonPress);
+    var errorButton = errorPopup.querySelector('.error__button');
+    errorButton.focus();
+    errorButton.addEventListener('click', onTryAgainButtonPress);
   };
 
   var pageActivate = function () {
@@ -75,6 +78,7 @@
     formActivate(filtersForm, true);
     document.querySelector('.ad-form').classList.add('ad-form--disabled');
     document.querySelector('.map').classList.add('map--faded');
+    document.querySelector('.map__pin--main').focus();
     window.map.pinDrop();
   };
 
