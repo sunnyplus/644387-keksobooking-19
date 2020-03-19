@@ -49,6 +49,7 @@
     document.addEventListener('keydown', window.page.onEscapePress);
     document.querySelector('.success').addEventListener('click', window.page.onPopupClick);
     adForm.reset();
+    window.page.pageDeactivate();
   };
 
   var onFormSubmitError = function (error) {

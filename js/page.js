@@ -69,12 +69,22 @@
     window.form.setPinCoords(true);
   };
 
+  var pageDeactivate = function () {
+
+    formActivate(adForm, true);
+    formActivate(filtersForm, true);
+    document.querySelector('.ad-form').classList.add('ad-form--disabled');
+    document.querySelector('.map').classList.add('map--faded');
+    window.map.pinDrop();
+  };
+
   formActivate(adForm, true);
   formActivate(filtersForm, true);
 
 
   window.page = {
     pageActivate: pageActivate,
+    pageDeactivate: pageDeactivate,
     createErrorPopup: createErrorPopup,
     createSuccessPopup: createSuccessPopup,
     onEscapePress: onEscapePress,

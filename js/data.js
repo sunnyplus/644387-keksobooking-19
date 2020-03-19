@@ -8,6 +8,5 @@
 
   window.data = {
     onSuccess: onSuccess
-  }
+  };
 })();
-

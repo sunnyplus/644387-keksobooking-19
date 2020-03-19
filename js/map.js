@@ -19,6 +19,14 @@
     };
   };
 
+  var pinDrop = function () { // очищает похожие объявления
+    document.querySelectorAll('.map__pin').forEach(function (element) {
+      if (element.className === 'map__pin') {
+        element.remove();
+      }
+    });
+  };
+
   var drawSimilarAds = function (similarAds) {
     var fragmentPin = document.createDocumentFragment();
     var filteredSimilarAds = window.filter.amount(similarAds, 5);
@@ -64,6 +72,7 @@
   window.map = {
     findAddress: findAddress,
     drawSimilarAds: drawSimilarAds,
-    drawCard: drawCard
+    drawCard: drawCard,
+    pinDrop: pinDrop
   };
 })();

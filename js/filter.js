@@ -3,7 +3,7 @@
 (function () {
 
   var MAX_ADS = 5;
-  
+
   var filtersForm = document.querySelector('.map__filters');
   var housingPrices = {
     'any': {
@@ -84,11 +84,7 @@
   };
 
   var reDrawSimilarAds = function (filteredSimilarAds) {
-    document.querySelectorAll('.map__pin').forEach(function (element) {
-      if (element.className === 'map__pin') {
-        element.remove();
-      }
-    });
+    window.map.pinDrop();
     window.map.drawSimilarAds(filteredSimilarAds);
   };
 
