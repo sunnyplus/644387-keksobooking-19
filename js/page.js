@@ -5,6 +5,8 @@
   var main = document.querySelector('main');
   var adForm = document.querySelector('.ad-form');
   var filtersForm = document.querySelector('.map__filters');
+  var userAvatar = document.querySelector('#avatar');
+  var userPreview = document.querySelector('.ad-form-header__preview img');
 
   var formActivate = function (form, flag) {
 
@@ -15,14 +17,13 @@
     form.querySelectorAll('form select').forEach(function (element) {
       element.disabled = flag;
     });
+
+    window.avatar.setUserAvatar(userAvatar, userPreview);
   };
 
   var onTryAgainButtonPress = function (evt) {
     evt.preventDefault();
     document.querySelector('.error').remove();
-    // formActivate(adForm, true);
-    // document.querySelector('.ad-form').classList.add('ad-form--disabled');
-    // document.querySelector('.map').classList.add('map--faded');
     pageDeactivate();
   };
 
