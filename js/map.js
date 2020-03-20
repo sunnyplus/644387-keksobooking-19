@@ -4,19 +4,20 @@
   var PIN_POINTER_HEIGHT = 22;
   var MAX_ADS_AMOUNT = 5;
 
-  var mapPin = document.querySelector('.map__pin--main'); // главная метка
+  var mapPin = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins'); // блок с пинами
   var filtersForm = document.querySelector('.map__filters');
 
-  var findAddress = function (pin, active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
+  var findAddress = function (active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
+    mapPin = document.querySelector('.map__pin--main');
     if (active === true) {
-      var pinOffsetY = pin.offsetHeight + PIN_POINTER_HEIGHT;
+      var pinOffsetY = mapPin.offsetHeight + PIN_POINTER_HEIGHT;
     } else {
-      pinOffsetY = pin.offsetHeight / 2;
+      pinOffsetY = mapPin.offsetHeight / 2;
     }
     return {
-      left: Math.floor(pin.offsetLeft + pin.offsetWidth / 2),
-      top: Math.floor(pin.offsetTop + pinOffsetY)
+      left: Math.floor(mapPin.offsetLeft + mapPin.offsetWidth / 2),
+      top: Math.floor(mapPin.offsetTop + pinOffsetY)
     };
   };
 

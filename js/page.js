@@ -2,11 +2,15 @@
 
 (function () {
 
+  var INITIAL_COORDS = '602, 407';
+
   var main = document.querySelector('main');
+  var addressField = document.querySelector('#address');
   var adForm = document.querySelector('.ad-form');
   var filtersForm = document.querySelector('.map__filters');
   var userAvatar = document.querySelector('#avatar');
   var userPreview = document.querySelector('.ad-form-header__preview img');
+  var resetButton = document.querySelector('.ad-form__reset');
 
   var formActivate = function (form, flag) {
 
@@ -90,9 +94,19 @@
     window.map.pinDrop();
   };
 
+  var onResetButtonPress = function () {
+    // evt.preventDefault();
+    window.form.formsReset();
+    window.map.pinDrop();
+    window.util.dropElement('.map__card');
+    addressField.value = INITIAL_COORDS;
+    // console.log(addressField.value);
+  };
+
+  resetButton.addEventListener('click', onResetButtonPress);
+
   formActivate(adForm, true);
   formActivate(filtersForm, true);
-
 
   window.page = {
     pageActivate: pageActivate,

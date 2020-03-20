@@ -33,6 +33,7 @@
   var setPinCoords = function (isActive) { // установка координат в активном/неактивном состояниях
     mainPinAddress = window.map.findAddress(mapPin, isActive);
     addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
+    // window.form.mainPinAddress = mainPinAddress;
   };
 
   var onFieldChange = function () {
@@ -49,11 +50,11 @@
     window.page.createSuccessPopup();
     document.addEventListener('keydown', window.page.onEscapePress);
     document.querySelector('.success').addEventListener('click', window.page.onPopupClick);
-    formReset();
+    formsReset();
     window.page.pageDeactivate();
   };
 
-  var formReset = function () {
+  var formsReset = function () {
     document.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
     adForm.reset();
     filtersForm.reset();
@@ -83,6 +84,7 @@
 
   window.form = {
     checkCapacityValidity: checkCapacityValidity,
-    setPinCoords: setPinCoords
+    setPinCoords: setPinCoords,
+    formsReset: formsReset
   };
 })();
