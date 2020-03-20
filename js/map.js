@@ -22,7 +22,7 @@
 
   var pinDrop = function () { // очищает похожие объявления
     document.querySelectorAll('.map__pin').forEach(function (element) {
-      if (element.className === 'map__pin') {
+      if (element.className === 'map__pin' || element.classList.contains('map__pin--active')) {
         element.remove();
       }
     });
@@ -50,6 +50,7 @@
         });
         pinTemplate.classList.add('map__pin--active');
       });
+      pinTemplate.addEventListener('keydown', window.page.onEscapePress);
       fragmentPin.append(pinTemplate); // добавляем пин во фрагмент
     });
 
@@ -66,10 +67,12 @@
     mapFilters.before(fragmentCard);
     document.querySelector('.popup__photo').remove();
     newCard.querySelector('.popup__close').addEventListener('click', onPopupClose);
+    document.addEventListener('keydown', window.page.onEscapePress);
   };
 
   var onPopupClose = function () {
     document.querySelector('.map__card').remove();
+    document.removeEventListener('keydown', window.page.onEscapePress);
   };
 
   mapPin.addEventListener('mousedown', function (evt) { // обработчик клика на главную метку

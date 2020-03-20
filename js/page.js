@@ -30,7 +30,14 @@
   var onEscapePress = function (evt) {
     evt.preventDefault();
     if (evt.key === 'Escape') {
-      document.querySelector('.success').remove();
+      var successPopup = document.querySelector('.success');
+      if (successPopup) {
+        successPopup.remove();
+      }
+      var card = document.querySelector('.map__card');
+      if (card) {
+        card.remove();
+      }
       document.removeEventListener('keydown', window.page.onEscapePress);
     }
   };

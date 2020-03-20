@@ -10,6 +10,7 @@
   };
 
   var adForm = document.querySelector('.ad-form');
+  var filtersForm = document.querySelector('.map__filters');
   var addressField = document.querySelector('#address');
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
   var capacity = document.querySelector('#capacity');
@@ -48,8 +49,14 @@
     window.page.createSuccessPopup();
     document.addEventListener('keydown', window.page.onEscapePress);
     document.querySelector('.success').addEventListener('click', window.page.onPopupClick);
-    adForm.reset();
+    formReset();
     window.page.pageDeactivate();
+  };
+
+  var formReset = function () {
+    document.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
+    adForm.reset();
+    filtersForm.reset();
   };
 
   var onFormSubmitError = function (error) {
