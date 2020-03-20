@@ -45,6 +45,10 @@
       var pinTemplate = window.pin.renderSimilarAds(similarAd);
       pinTemplate.addEventListener('click', function () {
         drawCard(similarAd); // по клику на пин отрисовываем карточку
+        document.querySelectorAll('.map__pin--active').forEach(function (element) {
+          element.classList.remove('map__pin--active');
+        });
+        pinTemplate.classList.add('map__pin--active');
       });
       fragmentPin.append(pinTemplate); // добавляем пин во фрагмент
     });
