@@ -2,6 +2,7 @@
 
 (function () {
   var PIN_POINTER_HEIGHT = 22;
+  var MAX_ADS_AMOUNT = 5;
 
   var mapPin = document.querySelector('.map__pin--main'); // главная метка
   var mapPins = document.querySelector('.map__pins'); // блок с пинами
@@ -29,7 +30,17 @@
 
   var drawSimilarAds = function (similarAds) {
     var fragmentPin = document.createDocumentFragment();
-    var filteredSimilarAds = window.filter.amount(similarAds, 5);
+    var filteredSimilarAds = [];
+
+    for (var i = 0; i < similarAds.length; i++) {
+      if (similarAds[i].hasOwnProperty('offer')) { // проверяем наличие ключа offer
+        filteredSimilarAds.push(similarAds[i]);
+      }
+      if (filteredSimilarAds.length === MAX_ADS_AMOUNT) {
+        break;
+      }
+    }
+
     filteredSimilarAds.forEach(function (similarAd) {
       var pinTemplate = window.pin.renderSimilarAds(similarAd);
       pinTemplate.addEventListener('click', function () {

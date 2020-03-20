@@ -68,27 +68,18 @@
     reDrawSimilarAds(filteredData);
   };
 
-  // var lastTimeOut;
-  // var on = function () {
-
-  // };
-
   var onFiltersFormChange = function () {
     window.debounce(filterData);
   };
 
   filtersForm.addEventListener('change', onFiltersFormChange);
 
-  var amount = function (initialData, dataAmount) {
-    return initialData.slice(0, dataAmount);
-  };
+  // var amount = function (initialData, dataAmount) {
+  //   return initialData.slice(0, dataAmount);
+  // };
 
   var reDrawSimilarAds = function (filteredSimilarAds) {
     window.map.pinDrop();
     window.map.drawSimilarAds(filteredSimilarAds);
-  };
-
-  window.filter = {
-    amount: amount
   };
 })();
