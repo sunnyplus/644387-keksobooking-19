@@ -12,11 +12,11 @@
   var adForm = document.querySelector('.ad-form');
   var filtersForm = document.querySelector('.map__filters');
   var addressField = document.querySelector('#address');
-  var mapPin = document.querySelector('.map__pin--main'); // главная метка
+  // var mapPin = document.querySelector('.map__pin--main'); // главная метка
   var capacity = document.querySelector('#capacity');
   var roomNumber = document.querySelector('#room_number');
 
-  var mainPinAddress = window.map.findAddress(mapPin, false);
+  var mainPinAddress = window.map.findAddress(false);
   addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top; // выставляем координаты метки в неактивном состоянии
 
   var checkCapacityValidity = function () {
@@ -31,7 +31,7 @@
   };
 
   var setPinCoords = function (isActive) { // установка координат в активном/неактивном состояниях
-    mainPinAddress = window.map.findAddress(mapPin, isActive);
+    mainPinAddress = window.map.findAddress(isActive);
     addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
     // window.form.mainPinAddress = mainPinAddress;
   };

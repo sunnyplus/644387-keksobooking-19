@@ -8,9 +8,9 @@
   var mapPins = document.querySelector('.map__pins'); // блок с пинами
   var filtersForm = document.querySelector('.map__filters');
 
-  var findAddress = function (active) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
+  var findAddress = function (isActive) { // функция определения координат метки в активном (true) и неактивном (false) состоянии.
     mapPin = document.querySelector('.map__pin--main');
-    if (active === true) {
+    if (isActive === true) {
       var pinOffsetY = mapPin.offsetHeight + PIN_POINTER_HEIGHT;
     } else {
       pinOffsetY = mapPin.offsetHeight / 2;

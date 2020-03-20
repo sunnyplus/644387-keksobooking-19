@@ -2,10 +2,15 @@
 
 (function () {
 
-  var INITIAL_COORDS = '602, 407';
+  var PIN_POINTER_HEIGHT = 22;
+  var INITIAL_COORDS = {
+    x: 602,
+    y: 462
+  };
 
   var main = document.querySelector('main');
   var addressField = document.querySelector('#address');
+  var mainPin = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var filtersForm = document.querySelector('.map__filters');
   var userAvatar = document.querySelector('#avatar');
@@ -94,13 +99,14 @@
     window.map.pinDrop();
   };
 
-  var onResetButtonPress = function () {
-    // evt.preventDefault();
+  var onResetButtonPress = function (evt) {
+    evt.preventDefault();
     window.form.formsReset();
     window.map.pinDrop();
     window.util.dropElement('.map__card');
-    addressField.value = INITIAL_COORDS;
-    // console.log(addressField.value);
+    addressField.value = INITIAL_COORDS.x + ', ' + INITIAL_COORDS.y;
+    mainPin.style.left = (INITIAL_COORDS.x - Math.floor(mainPin.offsetWidth / 2)) + 'px';
+    mainPin.style.top = (INITIAL_COORDS.y - mainPin.offsetheight - PIN_POINTER_HEIGHT) + 'px';
   };
 
   resetButton.addEventListener('click', onResetButtonPress);
