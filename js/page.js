@@ -97,6 +97,14 @@
     document.querySelector('.map').classList.add('map--faded');
     document.querySelector('.map__pin--main').focus();
     window.map.pinDrop();
+    window.util.dropElement('.map__card');
+    setInitialCoords();
+  };
+
+  var setInitialCoords = function () {
+    addressField.value = INITIAL_COORDS.x + ', ' + INITIAL_COORDS.y;
+    mainPin.style.left = (INITIAL_COORDS.x - Math.floor(mainPin.offsetWidth / 2)) + 'px';
+    mainPin.style.top = (INITIAL_COORDS.y - mainPin.offsetheight - PIN_POINTER_HEIGHT) + 'px';
   };
 
   var onResetButtonPress = function (evt) {
@@ -104,9 +112,7 @@
     window.form.formsReset();
     window.map.pinDrop();
     window.util.dropElement('.map__card');
-    addressField.value = INITIAL_COORDS.x + ', ' + INITIAL_COORDS.y;
-    mainPin.style.left = (INITIAL_COORDS.x - Math.floor(mainPin.offsetWidth / 2)) + 'px';
-    mainPin.style.top = (INITIAL_COORDS.y - mainPin.offsetheight - PIN_POINTER_HEIGHT) + 'px';
+    setInitialCoords();
   };
 
   resetButton.addEventListener('click', onResetButtonPress);

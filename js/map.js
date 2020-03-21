@@ -68,7 +68,7 @@
     mapFilters.before(fragmentCard);
     document.querySelector('.popup__photo').remove();
     newCard.querySelector('.popup__close').addEventListener('click', onPopupClose);
-    document.addEventListener('keydown', window.page.onEscapePress);
+    newCard.addEventListener('keydown', window.page.onEscapePress);
   };
 
   var onPopupClose = function () {
