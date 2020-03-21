@@ -14,8 +14,12 @@
   var adForm = document.querySelector('.ad-form');
   var filtersForm = document.querySelector('.map__filters');
   var userAvatar = document.querySelector('#avatar');
+  var houseAvatar = document.querySelector('#images');
   var userPreview = document.querySelector('.ad-form-header__preview img');
   var resetButton = document.querySelector('.ad-form__reset');
+
+  window.avatar.setUserAvatar(userAvatar, userPreview);
+  window.avatar.setUserAvatar(houseAvatar);
 
   var formActivate = function (form, flag) {
 
@@ -26,8 +30,6 @@
     form.querySelectorAll('form select').forEach(function (element) {
       element.disabled = flag;
     });
-
-    window.avatar.setUserAvatar(userAvatar, userPreview);
   };
 
   var onTryAgainButtonPress = function (evt) {
