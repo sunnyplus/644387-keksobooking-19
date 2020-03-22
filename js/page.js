@@ -84,7 +84,7 @@
   var pageActivate = function () {
 
     window.page.isPageActive = true;
-    formActivate(adForm, false); // активация формы adForm disabled = false
+    formActivate(adForm, false);
 
     window.backend.load(window.data.onSuccess, createErrorPopup);
 
