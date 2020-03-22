@@ -3,6 +3,8 @@
 (function () {
 
   var PIN_POINTER_HEIGHT = 22;
+  var MIN_Y = 130;
+  var MAX_Y = 630;
 
   var pinsMap = document.querySelector('.map');
   var pinHandle = document.querySelector('.map__pin--main');
@@ -10,8 +12,8 @@
   var pointerPinOffset = pinHandle.clientWidth / 2;
 
   var coordLimit = {
-    Y_MIN: 130 - pinHandle.offsetHeight - PIN_POINTER_HEIGHT,
-    Y_MAX: 630 - pinHandle.offsetHeight - PIN_POINTER_HEIGHT,
+    Y_MIN: MIN_Y - pinHandle.offsetHeight - PIN_POINTER_HEIGHT,
+    Y_MAX: MAX_Y - pinHandle.offsetHeight - PIN_POINTER_HEIGHT,
     X_MIN: -pointerPinOffset,
     X_MAX: pinsMap.clientWidth - pointerPinOffset
   };

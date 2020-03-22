@@ -34,7 +34,7 @@
     var filteredSimilarAds = [];
 
     for (var i = 0; i < similarAds.length; i++) {
-      if (similarAds[i].hasOwnProperty('offer')) { // проверяем наличие ключа offer
+      if (similarAds[i].hasOwnProperty('offer')) {
         filteredSimilarAds.push(similarAds[i]);
       }
       if (filteredSimilarAds.length === MAX_ADS_AMOUNT) {
@@ -77,13 +77,13 @@
   };
 
   mapPin.addEventListener('mousedown', function (evt) { // обработчик клика на главную метку
-    if (evt.button === 0) {
+    if (evt.button === 0 && (window.page.isPageActive === false || window.page.isPageActive === undefined)) {
       window.page.pageActivate();
     }
   });
 
   mapPin.addEventListener('keydown', function (evt) { // обработчик нажатия на главную метку
-    if (evt.key === 'Enter') {
+    if (evt.key === 'Enter' && (window.page.isPageActive === false || window.page.isPageActive === undefined)) {
       window.page.pageActivate();
     }
   });

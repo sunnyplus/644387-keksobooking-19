@@ -2,9 +2,6 @@
 
 (function () {
 
-  // var map = document.querySelector('.map');
-  // var mapWidth = map.offsetWidth;
-
   var getRandomElement = function (array) {
     return array[Math.floor(Math.random() * array.length)];
   };
@@ -16,12 +13,6 @@
     }
     return randomArray;
   };
-
-  // var getRandomFeatures = function (array) {
-  //   var featuresCount = getRandomRange(0, array.length);
-  //   shuffleArray(FEATURES);
-  //   return array.slice(featuresCount);
-  // };
 
   var getRandomRange = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -39,39 +30,6 @@
     }
     return array;
   };
-
-  // var getSimilarAd = function (userNumber) {
-  //   return {
-  //     author: {
-  //       avatar: 'img/avatars/user0' + userNumber + '.png',
-  //       offer: {
-  //         title: getRandomElement(TITLES),
-  //         address: getRandomElement(ADDRESSES),
-  //         price: getRandomRange(PRICE_MIN, PRICE_MAX),
-  //         type: getRandomElement(TYPES),
-  //         rooms: getRandomRange(ROOMS_MIN, ROOMS_MAX),
-  //         guests: getRandomRange(GUESTS_MIN, GUESTS_MAX),
-  //         checkin: getRandomElement(CHECKINS),
-  //         checkout: getRandomElement(CHECKOUTS),
-  //         features: getRandomFeatures(FEATURES),
-  //         description: getRandomElement(DESCRIPTIONS),
-  //         photos: getRandomImages(IMAGES_MAX)
-  //       },
-  //       location: {
-  //         x: getRandomRange(0, mapWidth),
-  //         y: getRandomRange(LOCATION_Y_MIN, LOCATION_Y_MAX)
-  //       }
-  //     }
-  //   };
-  // };
-
-  // var getSimilarAds = function () {
-  //   var similarAds = [];
-  //   for (var i = 1; i <= AD_AMOUNT; i++) {
-  //     similarAds.push(getSimilarAd(i));
-  //   }
-  //   return similarAds;
-  // };
 
   var dropElement = function (element) {
     var elementToDrop = document.querySelector(element);

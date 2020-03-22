@@ -8,7 +8,7 @@
   var housingPrices = {
     'any': {
       'min': 0,
-      'max': 10000000
+      'max': 1000000
     },
     'low': {
       'min': 0,
@@ -20,7 +20,7 @@
     },
     'high': {
       'min': 50000,
-      'max': 10000000
+      'max': 1000000
     }
   };
 
@@ -32,10 +32,15 @@
 
     backUpData = window.data.similarAds.slice();
     var filteredData = [];
+
     var isFeaturesAvailable = function (features) {
       var featureAvailable;
-      for (var k = 0; k < formFilterData.getAll('features').length; k++) {
-        if (features.indexOf(formFilterData.getAll('features')[k]) === -1) {
+      var activeFeatures = [];
+      document.querySelectorAll('.map__features input[name=features]:checked').forEach(function (feature) {
+        activeFeatures.push(feature.value);
+      });
+      for (var k = 0; k < activeFeatures.length; k++) {
+        if (features.indexOf(activeFeatures[k]) === -1) {
           featureAvailable = false;
           break;
         } else {
@@ -45,8 +50,9 @@
       return featureAvailable;
     };
 
+
     var getformData = function (formData, inputName) {
-      return formData.getAll(inputName)[0];
+      return formData.get(inputName);
     };
 
     for (var i = 0; i < backUpData.length; i++) {
@@ -73,10 +79,6 @@
   };
 
   filtersForm.addEventListener('change', onFiltersFormChange);
-
-  // var amount = function (initialData, dataAmount) {
-  //   return initialData.slice(0, dataAmount);
-  // };
 
   var reDrawSimilarAds = function (filteredSimilarAds) {
     window.map.pinDrop();

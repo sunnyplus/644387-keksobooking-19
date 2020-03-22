@@ -39,7 +39,6 @@
       switch (xhr.status) {
         case Code.SUCCESS:
           onSuccess(xhr.response);
-          // window.map.similarAds = xhr.response; // перенести в коллбэк функцию
           break;
         case Code.WRONG_REQUEST:
           error = 'Неверный запрос';

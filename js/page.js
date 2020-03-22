@@ -32,15 +32,17 @@
     });
   };
 
-  var onTryAgainButtonPress = function (evt) {
+  var onTryAgainErrorButtonPress = function (evt) {
     evt.preventDefault();
+    if (document.querySelector('.map__filter').disabled === true) {
+      pageDeactivate();
+    }
     document.querySelector('.error').remove();
-    pageDeactivate();
   };
 
   var onEscapePress = function (evt) {
-    evt.preventDefault();
     if (evt.key === 'Escape') {
+      evt.preventDefault();
       var successPopup = document.querySelector('.success');
       if (successPopup) {
         successPopup.remove();
@@ -76,11 +78,12 @@
     main.append(errorFragment);
     var errorButton = errorPopup.querySelector('.error__button');
     errorButton.focus();
-    errorButton.addEventListener('click', onTryAgainButtonPress);
+    errorButton.addEventListener('click', onTryAgainErrorButtonPress);
   };
 
   var pageActivate = function () {
 
+    window.page.isPageActive = true;
     formActivate(adForm, false); // активация формы adForm disabled = false
 
     window.backend.load(window.data.onSuccess, createErrorPopup);
@@ -93,6 +96,7 @@
 
   var pageDeactivate = function () {
 
+    window.page.isPageActive = false;
     formActivate(adForm, true);
     formActivate(filtersForm, true);
     document.querySelector('.ad-form').classList.add('ad-form--disabled');
@@ -115,6 +119,7 @@
     window.map.pinDrop();
     window.util.dropElement('.map__card');
     setInitialCoords();
+    pageDeactivate();
   };
 
   resetButton.addEventListener('click', onResetButtonPress);
