@@ -10,12 +10,12 @@
   };
 
   var adForm = document.querySelector('.ad-form');
+  var filtersForm = document.querySelector('.map__filters');
   var addressField = document.querySelector('#address');
-  var mapPin = document.querySelector('.map__pin--main'); // главная метка
   var capacity = document.querySelector('#capacity');
   var roomNumber = document.querySelector('#room_number');
 
-  var mainPinAddress = window.map.findAddress(mapPin, false);
+  var mainPinAddress = window.map.findAddress(false);
   addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top; // выставляем координаты метки в неактивном состоянии
 
   var checkCapacityValidity = function () {
@@ -30,7 +30,7 @@
   };
 
   var setPinCoords = function (isActive) { // установка координат в активном/неактивном состояниях
-    mainPinAddress = window.map.findAddress(mapPin, isActive);
+    mainPinAddress = window.map.findAddress(isActive);
     addressField.value = mainPinAddress.left + ', ' + mainPinAddress.top;
   };
 
@@ -48,7 +48,14 @@
     window.page.createSuccessPopup();
     document.addEventListener('keydown', window.page.onEscapePress);
     document.querySelector('.success').addEventListener('click', window.page.onPopupClick);
+    formsReset();
+    window.page.pageDeactivate();
+  };
+
+  var formsReset = function () {
+    document.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
     adForm.reset();
+    filtersForm.reset();
   };
 
   var onFormSubmitError = function (error) {
@@ -75,6 +82,7 @@
 
   window.form = {
     checkCapacityValidity: checkCapacityValidity,
-    setPinCoords: setPinCoords
+    setPinCoords: setPinCoords,
+    formsReset: formsReset
   };
 })();
